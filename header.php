@@ -34,15 +34,15 @@
     <meta name="theme-color" content="#4272d7">
 
     <!-- Fontfaces CSS-->
-    <link href="asset/css/font-face.css" rel="stylesheet" media="all" fetchpriority="high">
+    <link href="<?php echo $base_url?>/asset/css/font-face.css" rel="stylesheet" media="all" fetchpriority="high">
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="../../inter/inter.css" fetchpriority="high">
-    <link href="asset/vendor/fontawesome-7.2.0/css/all.min.css" rel="stylesheet" media="all"><!-- Bootstrap CSS-->
-    <link href="asset/vendor/bootstrap-5.3.8.min.css" rel="stylesheet" media="all">
+    <link href="<?php echo $base_url?>/asset/vendor/fontawesome-7.2.0/css/all.min.css" rel="stylesheet" media="all"><!-- Bootstrap CSS-->
+    <link href="<?php echo $base_url?>/asset/vendor/bootstrap-5.3.8.min.css" rel="stylesheet" media="all">
 
-    <!-- Vendor CSS--><link href="asset/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all"><!-- Main CSS-->
-    <link href="asset/css/theme.css" rel="stylesheet" media="all">
-    <link href="asset/css/theme-2026.css" rel="stylesheet" media="all">
+    <!-- Vendor CSS--><link href="<?php echo $base_url?>/asset/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all"><!-- Main CSS-->
+    <link href="<?php echo $base_url?>/asset/css/theme.css" rel="stylesheet" media="all">
+    <link href="<?php echo $base_url?>/asset/css/theme-2026.css" rel="stylesheet" media="all">
 
 </head>
 
@@ -56,7 +56,7 @@
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="index.html">
-                            <img src="asset/images/icon/logo.png" alt="CoolAdmin" fetchpriority="high" decoding="sync">
+                            <img src="<?php echo $base_url?>/asset/images/icon/logo.png" alt="CoolAdmin" fetchpriority="high" decoding="sync">
                         </a>
                         <button class="hamburger hamburger--slider" type="button" aria-label="Toggle navigation">
                             <span class="hamburger-box">
@@ -293,7 +293,7 @@
                                         <div class="mess-dropdown js-dropdown">
                                             <div class="mess__title"><p>Messages</p></div>
                                             <div class="mess__item">
-                                                <div class="image img-cir img-40"><img src="asset/images/icon/avatar-06.jpg" alt="" fetchpriority="high" decoding="sync"></div>
+                                                <div class="image img-cir img-40"><img src="<?php echo $base_url?>/asset/images/icon/avatar-06.jpg" alt="" fetchpriority="high" decoding="sync"></div>
                                                 <div class="content">
                                                     <h6>Michelle Moreno</h6>
                                                     <p>Have sent a photo</p>
@@ -301,7 +301,7 @@
                                                 </div>
                                             </div>
                                             <div class="mess__item">
-                                                <div class="image img-cir img-40"><img src="asset/images/icon/avatar-04.jpg" alt="" loading="lazy" decoding="async"></div>
+                                                <div class="image img-cir img-40"><img src="<?php echo $base_url?>/asset/images/icon/avatar-04.jpg" alt="" loading="lazy" decoding="async"></div>
                                                 <div class="content">
                                                     <h6>Diane Myers</h6>
                                                     <p>You are now connected</p>
@@ -317,14 +317,14 @@
                                         <div class="email-dropdown js-dropdown">
                                             <div class="email__title"><p>Emails</p></div>
                                             <div class="email__item">
-                                                <div class="image img-cir img-40"><img src="asset/images/icon/avatar-06.jpg" alt="" loading="lazy" decoding="async"></div>
+                                                <div class="image img-cir img-40"><img src="<?php echo $base_url?>/asset/images/icon/avatar-06.jpg" alt="" loading="lazy" decoding="async"></div>
                                                 <div class="content">
                                                     <p>Meeting about new dashboard…</p>
                                                     <span>Cynthia Harvey, 3 min ago</span>
                                                 </div>
                                             </div>
                                             <div class="email__item">
-                                                <div class="image img-cir img-40"><img src="asset/images/icon/avatar-05.jpg" alt="" loading="lazy" decoding="async"></div>
+                                                <div class="image img-cir img-40"><img src="<?php echo $base_url?>/asset/images/icon/avatar-05.jpg" alt="" loading="lazy" decoding="async"></div>
                                                 <div class="content">
                                                     <p>Quarterly report draft</p>
                                                     <span>John Doe, Yesterday</span>
@@ -365,11 +365,11 @@
                                 </div>
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu" role="button" tabindex="0" aria-haspopup="true" aria-label="Account menu">
-                                        <div class="image"><img src="asset/images/icon/avatar-01.jpg" alt="John Doe" loading="lazy" decoding="async"></div>
+                                        <div class="image"><img src="<?php echo $base_url?>/asset/images/icon/avatar-01.jpg" alt="John Doe" loading="lazy" decoding="async"></div>
                                         <div class="content"><a class="js-acc-btn" href="#">john doe</a></div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
-                                                <div class="image"><a href="#"><img src="asset/images/icon/avatar-01.jpg" alt="" loading="lazy" decoding="async"></a></div>
+                                                <div class="image"><a href="#"><img src="<?php echo $base_url?>/asset/images/icon/avatar-01.jpg" alt="" loading="lazy" decoding="async"></a></div>
                                                 <div class="content">
                                                     <h5 class="name"><a href="#">john doe</a></h5>
                                                     <span class="email">johndoe@example.com</span>
@@ -390,3 +390,6 @@
                 </div>
             </header>
 <!-- END HEADER DESKTOP-->
+   <main id="main-content" class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">

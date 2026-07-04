@@ -20,7 +20,7 @@
 
    public function create(){
     global $db;
-    stmt= $db->query("insert into suppliers (id,name,phone) 
+   $stmt= $db->query("insert into suppliers (id,name,phone) 
     values('$this->id','$this->name','$this->phone'
     )
     ");

@@ -1,175 +1,257 @@
  </div>
-        <!-- END PAGE CONTAINER-->
+ </div>
+ </main>
+ </div>
+ <!-- END PAGE CONTAINER-->
 
-    </div>
+ </div>
 
-    <!-- Bootstrap 5 JS-->
-    <script src="asset/js/vanilla-utils.js"></script>
-    <script src="asset/vendor/bootstrap-5.3.8.bundle.min.js"></script>
-    <!-- Vendor JS       --><script src="asset/vendor/chartjs/chart.umd.js-4.5.1.min.js"></script>
+ <!-- Bootstrap 5 JS-->
+ <script src="<?php echo $base_url ?>/asset/js/vanilla-utils.js"></script>
+ <script src="<?php echo $base_url ?>/asset/vendor/bootstrap-5.3.8.bundle.min.js"></script>
+ <!-- Vendor JS       -->
+ <script src="<?php echo $base_url ?>/asset/vendor/chartjs/chart.umd.js-4.5.1.min.js"></script>
 
-	<!-- Modern JS-->
-	<script src="asset/js/bootstrap5-init.js"></script><script src="asset/js/modern-plugins.js"></script>    <!-- Main JS-->
-    <script src="asset/js/main-vanilla.js"></script>
+ <!-- Modern JS-->
+ <script src="<?php echo $base_url ?>/asset/js/bootstrap5-init.js"></script>
+ <script src="<?php echo $base_url ?>/asset/js/modern-plugins.js"></script> <!-- Main JS-->
+ <script src="<?php echo $base_url ?>/asset/js/main-vanilla.js"></script>
 
 
-    <!-- Inbox interactivity -->
-    <script>
-    (function () {
-        const EMAILS = [
-            {
-                id: 'em1', avatar: 'asset/images/icon/avatar-01.jpg',
-                sender: 'John Doe', email: 'john@acme.co', label: 'work',
-                subject: 'Q2 roadmap is ready for review',
-                preview: "I've added the engineering and design tracks. Let me know what you think before Friday's sync.",
-                time: '12 min', date: 'Today, 2:14 PM',
-                unread: true, starred: true, attachments: [
-                    { name: 'q2-roadmap.pdf', size: '2.4 MB', type: 'pdf' },
-                    { name: 'eng-tracks.xlsx', size: '180 KB', type: 'xls' },
-                ],
-                body: `<p>Hey,</p><p>I've finished the first pass of the <strong>Q2 roadmap</strong>. The engineering and design tracks are spelled out, and I've added rough estimates for each initiative.</p><p>A few things I'd love your input on:</p><ul><li>Whether the auth refactor should stay in Q2 or shift to Q3</li><li>How aggressive we want to be on the analytics rollout</li><li>The proposed dependency between the design system v3 and onboarding flow</li></ul><p>Doc + spreadsheet attached. Let's chat <a href="#">on Friday's sync</a>, but happy to take async feedback before then.</p><p>Thanks,<br>John</p>`,
-            },
-            {
-                id: 'em2', avatar: 'asset/images/icon/avatar-04.jpg',
-                sender: 'Diane Myers', email: 'diane@globex.io', label: 'alert',
-                subject: 'Auth flow refactor — needs review',
-                preview: "PR #2148 is ready. The migration touches user sessions so I'd like a careful look before merging.",
-                time: '34 min', date: 'Today, 1:52 PM',
-                unread: true, starred: false,
-                body: `<p>Quick heads-up — <strong>PR #2148</strong> is ready for review.</p><p>The migration touches our session-token storage, which means we need to be careful about:</p><ol><li>Backwards compatibility during deploy (sessions issued before the migration)</li><li>The downstream effect on our refresh-token flow</li><li>Edge cases around the "remember me" extended sessions</li></ol><p>I've covered the main paths in tests but I'd love a second pair of eyes, especially on the <code>SessionStore.migrate()</code> implementation. Branch is <a href="#">refactor/auth-sessions</a>.</p><p>Aiming to merge by EOW.</p><p>— Diane</p>`,
-            },
-            {
-                id: 'em3', avatar: 'asset/images/icon/avatar-06.jpg',
-                sender: 'Cynthia Harvey', email: 'cynthia@example.com', label: '',
-                subject: 'Replied to your comment on Q1 retro',
-                preview: "Agreed on the action items. Let's schedule a follow-up to scope the deck rebuild.",
-                time: '1 hour', date: 'Today, 1:14 PM',
-                unread: true, starred: true,
-                body: `<p>Cynthia replied to your comment on <strong>Q1 retro</strong>:</p><blockquote>Agreed on the action items. Let's schedule a follow-up to scope the deck rebuild — I think we can knock it out in one focused session if we have all the data we need.</blockquote><p><a href="#">View thread →</a></p>`,
-            },
-            {
-                id: 'em4', avatar: 'asset/images/icon/avatar-02.jpg',
-                sender: 'Robert Taylor', email: 'robert@hooli.com', label: 'work',
-                subject: 'Onboarding wireframes ready',
-                preview: "Final wires are in Figma. Let's walk through them on Wednesday before kicking off dev.",
-                time: '2 hour', date: 'Today, 12:00 PM',
-                unread: true, starred: false, attachments: [
-                    { name: 'onboarding-v3.fig', size: '14 MB', type: 'fig' },
-                ],
-                body: `<p>Hey team,</p><p>Final onboarding wireframes are ready in Figma. I've covered:</p><ul><li>Sign-up → email verification → workspace creation</li><li>Empty-state for first-time users</li><li>The optional tour overlay (we can A/B test this)</li></ul><p>Want to walk through them together on Wednesday? Should take ~45 min. After that I'm clear to hand off to engineering.</p><p>Cheers,<br>Robert</p>`,
-            },
-            {
-                id: 'em5', avatar: 'asset/images/icon/avatar-05.jpg',
-                sender: 'Michelle Moreno', email: 'michelle@umbrella.co', label: '',
-                subject: 'Brand assets uploaded to Figma',
-                preview: 'New logo lockups, illustration kit, and motion stickers are in the "v3" library.',
-                time: '3 hour', date: 'Today, 11:08 AM',
-                unread: true, starred: false,
-                body: `<p>FYI — uploaded the v3 brand library to Figma. Includes:</p><ul><li>Updated logo lockups (light + dark)</li><li>Illustration kit (16 spot illustrations)</li><li>Motion stickers for product onboarding</li></ul><p>Library link: <a href="#">cooladmin/v3</a>. Anyone with edit access can pull components into their files.</p>`,
-            },
-            {
-                id: 'em6', avatar: 'asset/images/icon/avatar-03.jpg',
-                sender: 'Nicholas Martinez', email: 'nick@example.com', label: 'personal',
-                subject: 'Re: dinner Saturday?',
-                preview: "7:30 works. The new place on Hawthorne or back to the usual?",
-                time: 'Yesterday', date: 'Yesterday, 8:42 PM',
-                unread: false, starred: false,
-                body: `<p>7:30 works for me 👍</p><p>The new place on Hawthorne or back to the usual? Either works, just lmk so I can book.</p>`,
-            },
-            {
-                id: 'em7', avatar: 'asset/images/icon/avatar-04.jpg',
-                sender: 'GitHub', email: 'noreply@github.com', label: 'social',
-                subject: '[acme/dashboard] PR #2148 approved by 2 reviewers',
-                preview: 'All checks passing. Ready to merge to main.',
-                time: 'Yesterday', date: 'Yesterday, 5:12 PM',
-                unread: false, starred: true,
-                body: `<p><strong>2 of 2 required approvals received.</strong> All checks passing.</p><p>This pull request is ready to be merged into <code>main</code>.</p><p><a href="#">View pull request →</a></p>`,
-            },
-            {
-                id: 'em8', avatar: 'asset/images/icon/avatar-06.jpg',
-                sender: 'Cynthia Harvey', email: 'cynthia@example.com', label: '',
-                subject: 'Out of office — back Monday',
-                preview: "Please loop in Emma for anything urgent. I'll catch up on email when I'm back.",
-                time: 'Yesterday', date: 'Yesterday, 9:30 AM',
-                unread: false, starred: false,
-                body: `<p>Hi all,</p><p>I'm out of office until <strong>Monday morning</strong>. Please loop in <a href="#">Emma</a> for anything urgent — she has full context on the active workstreams.</p><p>I'll catch up on email when I'm back.</p><p>Cynthia</p>`,
-            },
-            {
-                id: 'em9', avatar: 'asset/images/icon/avatar-02.jpg',
-                sender: 'Stripe', email: 'receipts@stripe.com', label: 'promo',
-                subject: 'Your monthly receipt is available',
-                preview: 'Invoice #INV-2026-04 for $1,248.00 was paid on May 1.',
-                time: '2 days', date: 'May 1, 9:00 AM',
-                unread: false, starred: false, attachments: [
-                    { name: 'invoice-2026-04.pdf', size: '78 KB', type: 'pdf' },
-                ],
-                body: `<p>Receipt for your records.</p><p><strong>Invoice #INV-2026-04</strong><br>Amount: <strong>$1,248.00</strong><br>Paid: May 1, 2026<br>Method: Visa •••• 4242</p><p>Receipt PDF attached for your records.</p>`,
-            },
-            {
-                id: 'em10', avatar: 'asset/images/icon/avatar-01.jpg',
-                sender: 'John Doe', email: 'john@acme.co', label: '',
-                subject: 'Sprint planning notes — sprint 24',
-                preview: 'Capacity, carry-over, and the three priority tracks. Read before Wednesday\'s sync.',
-                time: '2 days', date: 'May 1, 8:14 AM',
-                unread: false, starred: false,
-                body: `<p>Notes from sprint 24 planning. Read these before Wednesday's standup:</p><ol><li><strong>Capacity:</strong> 8 engineers × 0.8 = 6.4 effective seats</li><li><strong>Carry-over:</strong> 12 points (mostly on the auth refactor)</li><li><strong>Priority tracks:</strong> Auth, onboarding, billing</li></ol><p>Full notes in <a href="#">Notion</a>.</p>`,
-            },
-            {
-                id: 'em11', avatar: 'asset/images/icon/avatar-05.jpg',
-                sender: 'Emma Carter', email: 'emma@example.com', label: 'work',
-                subject: '1:1 agenda for Thursday',
-                preview: 'A few things to cover: hiring update, Q3 planning, your career growth track.',
-                time: '3 days', date: 'Apr 30, 4:18 PM',
-                unread: false, starred: false,
-                body: `<p>Hey,</p><p>For our Thursday 1:1, I'd like to cover:</p><ul><li>Hiring update — we have 2 finalists for the senior eng role</li><li>Q3 planning — early thoughts on what to prioritize</li><li>Your career growth track — let's talk about the next level</li></ul><p>Anything else you want to add? I have us at 30 min but happy to extend if needed.</p>`,
-            },
-            {
-                id: 'em12', avatar: 'asset/images/icon/avatar-03.jpg',
-                sender: 'Linear', email: 'noreply@linear.app', label: 'social',
-                subject: '5 issues assigned to you this week',
-                preview: 'ENG-1284, ENG-1290, ENG-1293, ENG-1294, ENG-1297. Earliest due May 18.',
-                time: '5 days', date: 'Apr 28, 7:30 AM',
-                unread: false, starred: false,
-                body: `<p>You have <strong>5 issues</strong> assigned to you this week:</p><ul><li><a href="#">ENG-1284</a> — Fix avatar oval on mobile (due May 18)</li><li><a href="#">ENG-1290</a> — Add Cmd+K palette (due May 22)</li><li><a href="#">ENG-1293</a> — Onboarding wires review</li><li><a href="#">ENG-1294</a> — Brand assets v3 sync</li><li><a href="#">ENG-1297</a> — Sprint retro prep</li></ul><p><a href="#">View all in Linear →</a></p>`,
-            },
-        ];
+ <!-- Inbox interactivity -->
+ <script>
+     (function() {
+         const EMAILS = [{
+                 id: 'em1',
+                 avatar: 'asset/images/icon/avatar-01.jpg',
+                 sender: 'John Doe',
+                 email: 'john@acme.co',
+                 label: 'work',
+                 subject: 'Q2 roadmap is ready for review',
+                 preview: "I've added the engineering and design tracks. Let me know what you think before Friday's sync.",
+                 time: '12 min',
+                 date: 'Today, 2:14 PM',
+                 unread: true,
+                 starred: true,
+                 attachments: [{
+                         name: 'q2-roadmap.pdf',
+                         size: '2.4 MB',
+                         type: 'pdf'
+                     },
+                     {
+                         name: 'eng-tracks.xlsx',
+                         size: '180 KB',
+                         type: 'xls'
+                     },
+                 ],
+                 body: `<p>Hey,</p><p>I've finished the first pass of the <strong>Q2 roadmap</strong>. The engineering and design tracks are spelled out, and I've added rough estimates for each initiative.</p><p>A few things I'd love your input on:</p><ul><li>Whether the auth refactor should stay in Q2 or shift to Q3</li><li>How aggressive we want to be on the analytics rollout</li><li>The proposed dependency between the design system v3 and onboarding flow</li></ul><p>Doc + spreadsheet attached. Let's chat <a href="#">on Friday's sync</a>, but happy to take async feedback before then.</p><p>Thanks,<br>John</p>`,
+             },
+             {
+                 id: 'em2',
+                 avatar: 'asset/images/icon/avatar-04.jpg',
+                 sender: 'Diane Myers',
+                 email: 'diane@globex.io',
+                 label: 'alert',
+                 subject: 'Auth flow refactor — needs review',
+                 preview: "PR #2148 is ready. The migration touches user sessions so I'd like a careful look before merging.",
+                 time: '34 min',
+                 date: 'Today, 1:52 PM',
+                 unread: true,
+                 starred: false,
+                 body: `<p>Quick heads-up — <strong>PR #2148</strong> is ready for review.</p><p>The migration touches our session-token storage, which means we need to be careful about:</p><ol><li>Backwards compatibility during deploy (sessions issued before the migration)</li><li>The downstream effect on our refresh-token flow</li><li>Edge cases around the "remember me" extended sessions</li></ol><p>I've covered the main paths in tests but I'd love a second pair of eyes, especially on the <code>SessionStore.migrate()</code> implementation. Branch is <a href="#">refactor/auth-sessions</a>.</p><p>Aiming to merge by EOW.</p><p>— Diane</p>`,
+             },
+             {
+                 id: 'em3',
+                 avatar: 'asset/images/icon/avatar-06.jpg',
+                 sender: 'Cynthia Harvey',
+                 email: 'cynthia@example.com',
+                 label: '',
+                 subject: 'Replied to your comment on Q1 retro',
+                 preview: "Agreed on the action items. Let's schedule a follow-up to scope the deck rebuild.",
+                 time: '1 hour',
+                 date: 'Today, 1:14 PM',
+                 unread: true,
+                 starred: true,
+                 body: `<p>Cynthia replied to your comment on <strong>Q1 retro</strong>:</p><blockquote>Agreed on the action items. Let's schedule a follow-up to scope the deck rebuild — I think we can knock it out in one focused session if we have all the data we need.</blockquote><p><a href="#">View thread →</a></p>`,
+             },
+             {
+                 id: 'em4',
+                 avatar: 'asset/images/icon/avatar-02.jpg',
+                 sender: 'Robert Taylor',
+                 email: 'robert@hooli.com',
+                 label: 'work',
+                 subject: 'Onboarding wireframes ready',
+                 preview: "Final wires are in Figma. Let's walk through them on Wednesday before kicking off dev.",
+                 time: '2 hour',
+                 date: 'Today, 12:00 PM',
+                 unread: true,
+                 starred: false,
+                 attachments: [{
+                     name: 'onboarding-v3.fig',
+                     size: '14 MB',
+                     type: 'fig'
+                 }, ],
+                 body: `<p>Hey team,</p><p>Final onboarding wireframes are ready in Figma. I've covered:</p><ul><li>Sign-up → email verification → workspace creation</li><li>Empty-state for first-time users</li><li>The optional tour overlay (we can A/B test this)</li></ul><p>Want to walk through them together on Wednesday? Should take ~45 min. After that I'm clear to hand off to engineering.</p><p>Cheers,<br>Robert</p>`,
+             },
+             {
+                 id: 'em5',
+                 avatar: 'asset/images/icon/avatar-05.jpg',
+                 sender: 'Michelle Moreno',
+                 email: 'michelle@umbrella.co',
+                 label: '',
+                 subject: 'Brand assets uploaded to Figma',
+                 preview: 'New logo lockups, illustration kit, and motion stickers are in the "v3" library.',
+                 time: '3 hour',
+                 date: 'Today, 11:08 AM',
+                 unread: true,
+                 starred: false,
+                 body: `<p>FYI — uploaded the v3 brand library to Figma. Includes:</p><ul><li>Updated logo lockups (light + dark)</li><li>Illustration kit (16 spot illustrations)</li><li>Motion stickers for product onboarding</li></ul><p>Library link: <a href="#">cooladmin/v3</a>. Anyone with edit access can pull components into their files.</p>`,
+             },
+             {
+                 id: 'em6',
+                 avatar: 'asset/images/icon/avatar-03.jpg',
+                 sender: 'Nicholas Martinez',
+                 email: 'nick@example.com',
+                 label: 'personal',
+                 subject: 'Re: dinner Saturday?',
+                 preview: "7:30 works. The new place on Hawthorne or back to the usual?",
+                 time: 'Yesterday',
+                 date: 'Yesterday, 8:42 PM',
+                 unread: false,
+                 starred: false,
+                 body: `<p>7:30 works for me 👍</p><p>The new place on Hawthorne or back to the usual? Either works, just lmk so I can book.</p>`,
+             },
+             {
+                 id: 'em7',
+                 avatar: 'asset/images/icon/avatar-04.jpg',
+                 sender: 'GitHub',
+                 email: 'noreply@github.com',
+                 label: 'social',
+                 subject: '[acme/dashboard] PR #2148 approved by 2 reviewers',
+                 preview: 'All checks passing. Ready to merge to main.',
+                 time: 'Yesterday',
+                 date: 'Yesterday, 5:12 PM',
+                 unread: false,
+                 starred: true,
+                 body: `<p><strong>2 of 2 required approvals received.</strong> All checks passing.</p><p>This pull request is ready to be merged into <code>main</code>.</p><p><a href="#">View pull request →</a></p>`,
+             },
+             {
+                 id: 'em8',
+                 avatar: 'asset/images/icon/avatar-06.jpg',
+                 sender: 'Cynthia Harvey',
+                 email: 'cynthia@example.com',
+                 label: '',
+                 subject: 'Out of office — back Monday',
+                 preview: "Please loop in Emma for anything urgent. I'll catch up on email when I'm back.",
+                 time: 'Yesterday',
+                 date: 'Yesterday, 9:30 AM',
+                 unread: false,
+                 starred: false,
+                 body: `<p>Hi all,</p><p>I'm out of office until <strong>Monday morning</strong>. Please loop in <a href="#">Emma</a> for anything urgent — she has full context on the active workstreams.</p><p>I'll catch up on email when I'm back.</p><p>Cynthia</p>`,
+             },
+             {
+                 id: 'em9',
+                 avatar: 'asset/images/icon/avatar-02.jpg',
+                 sender: 'Stripe',
+                 email: 'receipts@stripe.com',
+                 label: 'promo',
+                 subject: 'Your monthly receipt is available',
+                 preview: 'Invoice #INV-2026-04 for $1,248.00 was paid on May 1.',
+                 time: '2 days',
+                 date: 'May 1, 9:00 AM',
+                 unread: false,
+                 starred: false,
+                 attachments: [{
+                     name: 'invoice-2026-04.pdf',
+                     size: '78 KB',
+                     type: 'pdf'
+                 }, ],
+                 body: `<p>Receipt for your records.</p><p><strong>Invoice #INV-2026-04</strong><br>Amount: <strong>$1,248.00</strong><br>Paid: May 1, 2026<br>Method: Visa •••• 4242</p><p>Receipt PDF attached for your records.</p>`,
+             },
+             {
+                 id: 'em10',
+                 avatar: 'asset/images/icon/avatar-01.jpg',
+                 sender: 'John Doe',
+                 email: 'john@acme.co',
+                 label: '',
+                 subject: 'Sprint planning notes — sprint 24',
+                 preview: 'Capacity, carry-over, and the three priority tracks. Read before Wednesday\'s sync.',
+                 time: '2 days',
+                 date: 'May 1, 8:14 AM',
+                 unread: false,
+                 starred: false,
+                 body: `<p>Notes from sprint 24 planning. Read these before Wednesday's standup:</p><ol><li><strong>Capacity:</strong> 8 engineers × 0.8 = 6.4 effective seats</li><li><strong>Carry-over:</strong> 12 points (mostly on the auth refactor)</li><li><strong>Priority tracks:</strong> Auth, onboarding, billing</li></ol><p>Full notes in <a href="#">Notion</a>.</p>`,
+             },
+             {
+                 id: 'em11',
+                 avatar: 'asset/images/icon/avatar-05.jpg',
+                 sender: 'Emma Carter',
+                 email: 'emma@example.com',
+                 label: 'work',
+                 subject: '1:1 agenda for Thursday',
+                 preview: 'A few things to cover: hiring update, Q3 planning, your career growth track.',
+                 time: '3 days',
+                 date: 'Apr 30, 4:18 PM',
+                 unread: false,
+                 starred: false,
+                 body: `<p>Hey,</p><p>For our Thursday 1:1, I'd like to cover:</p><ul><li>Hiring update — we have 2 finalists for the senior eng role</li><li>Q3 planning — early thoughts on what to prioritize</li><li>Your career growth track — let's talk about the next level</li></ul><p>Anything else you want to add? I have us at 30 min but happy to extend if needed.</p>`,
+             },
+             {
+                 id: 'em12',
+                 avatar: 'asset/images/icon/avatar-03.jpg',
+                 sender: 'Linear',
+                 email: 'noreply@linear.app',
+                 label: 'social',
+                 subject: '5 issues assigned to you this week',
+                 preview: 'ENG-1284, ENG-1290, ENG-1293, ENG-1294, ENG-1297. Earliest due May 18.',
+                 time: '5 days',
+                 date: 'Apr 28, 7:30 AM',
+                 unread: false,
+                 starred: false,
+                 body: `<p>You have <strong>5 issues</strong> assigned to you this week:</p><ul><li><a href="#">ENG-1284</a> — Fix avatar oval on mobile (due May 18)</li><li><a href="#">ENG-1290</a> — Add Cmd+K palette (due May 22)</li><li><a href="#">ENG-1293</a> — Onboarding wires review</li><li><a href="#">ENG-1294</a> — Brand assets v3 sync</li><li><a href="#">ENG-1297</a> — Sprint retro prep</li></ul><p><a href="#">View all in Linear →</a></p>`,
+             },
+         ];
 
-        const list = document.getElementById('email-list');
-        const reader = document.getElementById('inbox-reader');
-        const readerContent = document.getElementById('reader-content');
-        const readerEmpty = document.getElementById('reader-empty');
-        const inboxCount = document.getElementById('inbox-count');
-        const tabCount = document.getElementById('tab-count-inbox');
-        const statUnread = document.getElementById('stat-unread');
-        const statStarred = document.getElementById('stat-starred');
+         const list = document.getElementById('email-list');
+         const reader = document.getElementById('inbox-reader');
+         const readerContent = document.getElementById('reader-content');
+         const readerEmpty = document.getElementById('reader-empty');
+         const inboxCount = document.getElementById('inbox-count');
+         const tabCount = document.getElementById('tab-count-inbox');
+         const statUnread = document.getElementById('stat-unread');
+         const statStarred = document.getElementById('stat-starred');
 
-        const LABELS = {
-            work: 'Work', personal: 'Personal', social: 'Social',
-            promo: 'Receipts', alert: 'Urgent',
-        };
+         const LABELS = {
+             work: 'Work',
+             personal: 'Personal',
+             social: 'Social',
+             promo: 'Receipts',
+             alert: 'Urgent',
+         };
 
-        let activeId = null;
+         let activeId = null;
 
-        function escapeHtml(s) {
-            const d = document.createElement('div'); d.textContent = String(s);
-            return d.innerHTML;
-        }
+         function escapeHtml(s) {
+             const d = document.createElement('div');
+             d.textContent = String(s);
+             return d.innerHTML;
+         }
 
-        function renderList() {
-            list.innerHTML = '';
-            EMAILS.forEach((em) => {
-                const li = document.createElement('li');
-                li.className = 'email-item';
-                if (em.unread) li.classList.add('is-unread');
-                if (em.id === activeId) li.classList.add('is-active');
-                li.dataset.id = em.id;
-                const labelHtml = em.label
-                    ? `<span class="email-item__label email-item__label--${em.label}">${LABELS[em.label] || em.label}</span>`
-                    : '';
-                const attachIcon = (em.attachments && em.attachments.length)
-                    ? '<i class="fa-solid fa-paperclip" aria-label="Has attachments"></i>'
-                    : '';
-                li.innerHTML = `
+         function renderList() {
+             list.innerHTML = '';
+             EMAILS.forEach((em) => {
+                 const li = document.createElement('li');
+                 li.className = 'email-item';
+                 if (em.unread) li.classList.add('is-unread');
+                 if (em.id === activeId) li.classList.add('is-active');
+                 li.dataset.id = em.id;
+                 const labelHtml = em.label ?
+                     `<span class="email-item__label email-item__label--${em.label}">${LABELS[em.label] || em.label}</span>` :
+                     '';
+                 const attachIcon = (em.attachments && em.attachments.length) ?
+                     '<i class="fa-solid fa-paperclip" aria-label="Has attachments"></i>' :
+                     '';
+                 li.innerHTML = `
                     <span class="email-item__check"><input type="checkbox" aria-label="Select email"></span>
                     <button class="email-item__star ${em.starred ? 'is-starred' : ''}" data-action="star" aria-label="${em.starred ? 'Starred' : 'Star'}">
                         <i class="fa-${em.starred ? 'solid' : 'regular'} fa-star"></i>
@@ -181,52 +263,60 @@
                     </div>
                     <div class="email-item__meta">${attachIcon}<span>${escapeHtml(em.time)}</span></div>
                 `;
-                li.addEventListener('click', (e) => {
-                    if (e.target.closest('[data-action="star"]')) return;
-                    if (e.target.closest('input[type="checkbox"]')) return;
-                    openEmail(em.id);
-                });
-                const starBtn = li.querySelector('[data-action="star"]');
-                starBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    em.starred = !em.starred;
-                    renderList(); refreshCounts();
-                });
-                list.appendChild(li);
-            });
-            refreshCounts();
-        }
+                 li.addEventListener('click', (e) => {
+                     if (e.target.closest('[data-action="star"]')) return;
+                     if (e.target.closest('input[type="checkbox"]')) return;
+                     openEmail(em.id);
+                 });
+                 const starBtn = li.querySelector('[data-action="star"]');
+                 starBtn.addEventListener('click', (e) => {
+                     e.stopPropagation();
+                     em.starred = !em.starred;
+                     renderList();
+                     refreshCounts();
+                 });
+                 list.appendChild(li);
+             });
+             refreshCounts();
+         }
 
-        function refreshCounts() {
-            const unread = EMAILS.filter((e) => e.unread).length;
-            const starred = EMAILS.filter((e) => e.starred).length;
-            inboxCount.textContent = `${EMAILS.length} message${EMAILS.length === 1 ? '' : 's'}${unread ? ` &middot; ${unread} unread` : ''}`;
-            inboxCount.innerHTML = inboxCount.textContent;
-            if (tabCount) tabCount.textContent = EMAILS.length;
-            if (statUnread) statUnread.textContent = unread;
-            if (statStarred) statStarred.textContent = starred;
-        }
+         function refreshCounts() {
+             const unread = EMAILS.filter((e) => e.unread).length;
+             const starred = EMAILS.filter((e) => e.starred).length;
+             inboxCount.textContent = `${EMAILS.length} message${EMAILS.length === 1 ? '' : 's'}${unread ? ` &middot; ${unread} unread` : ''}`;
+             inboxCount.innerHTML = inboxCount.textContent;
+             if (tabCount) tabCount.textContent = EMAILS.length;
+             if (statUnread) statUnread.textContent = unread;
+             if (statStarred) statStarred.textContent = starred;
+         }
 
-        function attachIcon(type) {
-            const icons = { pdf: 'fa-file-pdf', xls: 'fa-file-excel', fig: 'fa-pen-ruler', img: 'fa-image' };
-            return icons[type] || 'fa-file';
-        }
+         function attachIcon(type) {
+             const icons = {
+                 pdf: 'fa-file-pdf',
+                 xls: 'fa-file-excel',
+                 fig: 'fa-pen-ruler',
+                 img: 'fa-image'
+             };
+             return icons[type] || 'fa-file';
+         }
 
-        function openEmail(id) {
-            const em = EMAILS.find((e) => e.id === id);
-            if (!em) return;
+         function openEmail(id) {
+             const em = EMAILS.find((e) => e.id === id);
+             if (!em) return;
 
-            // Mark as read
-            if (em.unread) { em.unread = false; }
+             // Mark as read
+             if (em.unread) {
+                 em.unread = false;
+             }
 
-            activeId = id;
-            renderList();
+             activeId = id;
+             renderList();
 
-            // Build reader content
-            const labelHtml = em.label
-                ? `<span class="email-item__label email-item__label--${em.label}">${LABELS[em.label] || em.label}</span>`
-                : '';
-            const attachmentsHtml = (em.attachments && em.attachments.length) ? `
+             // Build reader content
+             const labelHtml = em.label ?
+                 `<span class="email-item__label email-item__label--${em.label}">${LABELS[em.label] || em.label}</span>` :
+                 '';
+             const attachmentsHtml = (em.attachments && em.attachments.length) ? `
                 <div class="inbox-reader__attachments">
                     ${em.attachments.map((a) => `
                         <a class="inbox-reader__attachment" href="#" onclick="event.preventDefault(); window.toast && window.toast.info('Downloading ' + ${JSON.stringify(a.name)});">
@@ -240,7 +330,7 @@
                 </div>
             ` : '';
 
-            readerContent.innerHTML = `
+             readerContent.innerHTML = `
                 <header class="inbox-reader__header">
                     <button type="button" class="inbox-reader__back" data-action="back"><i class="fa-solid fa-arrow-left"></i> Back</button>
                     <div>
@@ -272,104 +362,108 @@
                 </div>
             `;
 
-            readerEmpty.style.display = 'none';
-            readerContent.style.display = 'flex';
+             readerEmpty.style.display = 'none';
+             readerContent.style.display = 'flex';
 
-            // Wire reader actions
-            readerContent.querySelectorAll('[data-action]').forEach((btn) => {
-                btn.addEventListener('click', (e) => handleAction(btn.dataset.action, em));
-            });
-            const sendBtn = document.getElementById('quick-reply-send');
-            const replyInput = document.getElementById('quick-reply-input');
-            const sendReply = () => {
-                if (!replyInput.value.trim()) return;
-                window.toast && window.toast.success('Reply sent');
-                replyInput.value = '';
-            };
-            sendBtn.addEventListener('click', sendReply);
-            replyInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendReply(); });
+             // Wire reader actions
+             readerContent.querySelectorAll('[data-action]').forEach((btn) => {
+                 btn.addEventListener('click', (e) => handleAction(btn.dataset.action, em));
+             });
+             const sendBtn = document.getElementById('quick-reply-send');
+             const replyInput = document.getElementById('quick-reply-input');
+             const sendReply = () => {
+                 if (!replyInput.value.trim()) return;
+                 window.toast && window.toast.success('Reply sent');
+                 replyInput.value = '';
+             };
+             sendBtn.addEventListener('click', sendReply);
+             replyInput.addEventListener('keydown', (e) => {
+                 if (e.key === 'Enter') sendReply();
+             });
 
-            // Mobile: open as overlay
-            document.body.classList.add('inbox-reader-open');
-            refreshCounts();
-        }
+             // Mobile: open as overlay
+             document.body.classList.add('inbox-reader-open');
+             refreshCounts();
+         }
 
-        function closeReader() {
-            document.body.classList.remove('inbox-reader-open');
-        }
+         function closeReader() {
+             document.body.classList.remove('inbox-reader-open');
+         }
 
-        function handleAction(action, em) {
-            if (action === 'back') {
-                closeReader();
-                return;
-            }
-            if (action === 'star') {
-                em.starred = !em.starred;
-                openEmail(em.id);
-                return;
-            }
-            if (action === 'archive') {
-                const idx = EMAILS.findIndex((e) => e.id === em.id);
-                if (idx >= 0) EMAILS.splice(idx, 1);
-                window.toast && window.toast.success('Email archived');
-                resetReader();
-                renderList();
-                closeReader();
-                return;
-            }
-            if (action === 'delete') {
-                const idx = EMAILS.findIndex((e) => e.id === em.id);
-                if (idx >= 0) EMAILS.splice(idx, 1);
-                window.toast && window.toast.success('Moved to trash');
-                resetReader();
-                renderList();
-                closeReader();
-                return;
-            }
-            if (action === 'more') {
-                window.toast && window.toast.info('More options coming soon');
-                return;
-            }
-        }
+         function handleAction(action, em) {
+             if (action === 'back') {
+                 closeReader();
+                 return;
+             }
+             if (action === 'star') {
+                 em.starred = !em.starred;
+                 openEmail(em.id);
+                 return;
+             }
+             if (action === 'archive') {
+                 const idx = EMAILS.findIndex((e) => e.id === em.id);
+                 if (idx >= 0) EMAILS.splice(idx, 1);
+                 window.toast && window.toast.success('Email archived');
+                 resetReader();
+                 renderList();
+                 closeReader();
+                 return;
+             }
+             if (action === 'delete') {
+                 const idx = EMAILS.findIndex((e) => e.id === em.id);
+                 if (idx >= 0) EMAILS.splice(idx, 1);
+                 window.toast && window.toast.success('Moved to trash');
+                 resetReader();
+                 renderList();
+                 closeReader();
+                 return;
+             }
+             if (action === 'more') {
+                 window.toast && window.toast.info('More options coming soon');
+                 return;
+             }
+         }
 
-        function resetReader() {
-            activeId = null;
-            readerContent.style.display = 'none';
-            readerContent.innerHTML = '';
-            readerEmpty.style.display = '';
-        }
+         function resetReader() {
+             activeId = null;
+             readerContent.style.display = 'none';
+             readerContent.innerHTML = '';
+             readerEmpty.style.display = '';
+         }
 
-        // Header buttons
-        const refreshBtn = document.getElementById('inbox-refresh-btn');
-        if (refreshBtn) refreshBtn.addEventListener('click', () => {
-            window.toast && window.toast.success('Inbox refreshed');
-        });
-        const composeBtn = document.getElementById('inbox-compose-btn');
-        if (composeBtn) composeBtn.addEventListener('click', () => {
-            window.toast && window.toast.info('Compose window coming soon');
-        });
-        const markAllReadBtn = document.getElementById('mark-all-read-btn');
-        if (markAllReadBtn) markAllReadBtn.addEventListener('click', () => {
-            EMAILS.forEach((e) => { e.unread = false; });
-            renderList();
-            window.toast && window.toast.success('All messages marked as read');
-        });
+         // Header buttons
+         const refreshBtn = document.getElementById('inbox-refresh-btn');
+         if (refreshBtn) refreshBtn.addEventListener('click', () => {
+             window.toast && window.toast.success('Inbox refreshed');
+         });
+         const composeBtn = document.getElementById('inbox-compose-btn');
+         if (composeBtn) composeBtn.addEventListener('click', () => {
+             window.toast && window.toast.info('Compose window coming soon');
+         });
+         const markAllReadBtn = document.getElementById('mark-all-read-btn');
+         if (markAllReadBtn) markAllReadBtn.addEventListener('click', () => {
+             EMAILS.forEach((e) => {
+                 e.unread = false;
+             });
+             renderList();
+             window.toast && window.toast.success('All messages marked as read');
+         });
 
-        // Folder tab toggle (visual only)
-        document.querySelectorAll('.inbox-tabs .inbox-tab').forEach((tab) => {
-            tab.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.querySelectorAll('.inbox-tabs .inbox-tab').forEach((t) => t.classList.remove('is-active'));
-                tab.classList.add('is-active');
-            });
-        });
+         // Folder tab toggle (visual only)
+         document.querySelectorAll('.inbox-tabs .inbox-tab').forEach((tab) => {
+             tab.addEventListener('click', (e) => {
+                 e.preventDefault();
+                 document.querySelectorAll('.inbox-tabs .inbox-tab').forEach((t) => t.classList.remove('is-active'));
+                 tab.classList.add('is-active');
+             });
+         });
 
-        renderList();
-    })();
-    </script>
+         renderList();
+     })();
+ </script>
 
-<script defer="" src="../../beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"cd0b4b3a733644fc843ef0b185f98241","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-</body>
+ <script defer="" src="../../beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"cd0b4b3a733644fc843ef0b185f98241","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+ </body>
 
-</html>
-<!-- end document-->
+ </html>
+ <!-- end document-->

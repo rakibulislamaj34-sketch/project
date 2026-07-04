@@ -1,82 +1,125 @@
 <?php
-class orders{
-    public order_id;
-    public cumstomer_id;
-    public	table_id;
-    public	user_id	;
-    public  order_data;
-    public	total_amount;
-    public	order_status;	
 
-    public function set($order_id, $pcumstomer_id, $ptable_id, $puser_id, $porder_data,$ptotal_amount,$porder_status){
+class Orders{
+
+    public $order_id;
+    public $customer_id;
+    public $table_id;
+    public $user_id;
+    public $order_date;
+    public $total_amount;
+    public $order_status;
+
+    public function set(
+        $porder_id,
+        $pcustomer_id,
+        $ptable_id,
+        $puser_id,
+        $porder_date,
+        $ptotal_amount,
+        $porder_status
+    ){
+
         $this->order_id = $porder_id;
-        $this->cumstomer_id = $pcumstomer_id;
+        $this->customer_id = $pcustomer_id;
         $this->table_id = $ptable_id;
         $this->user_id = $puser_id;
-        $this->order_data = $porder_data;
+        $this->order_date = $porder_date;
         $this->total_amount = $ptotal_amount;
         $this->order_status = $porder_status;
     }
-      // create 
+
+    // Create
     public function save(){
+
         global $db;
-        $sql = "INSERT INTO customers ($order_id, $table_id, $user_id,$order_data,$total_amount,$order_status) VALUES ('$this->$order_id', '$this->cumstomer_id', '$this->table_id', '$this-> $puser_id', '$this->$porder_data', '$this->$ptotal_amount', '$this->$porder_status',)";
-        $stmt = $db->query($sql);
-        if($stmt){
+
+        $sql = "INSERT INTO orders
+        (
+            order_id,
+            customer_id,
+            table_id,
+            user_id,
+            order_date,
+            total_amount,
+            order_status
+        )
+        VALUES
+        (
+            '$this->order_id',
+            '$this->customer_id',
+            '$this->table_id',
+            '$this->user_id',
+            '$this->order_date',
+            '$this->total_amount',
+            '$this->order_status'
+        )";
+
+        if($db->query($sql)){
             echo "Successfully Inserted!";
-            return $stmt->insrted_id;
+            return $db->insert_id;
         }
+
+        return false;
     }
 
-        // read
-    public static function showorders(){
+    // Read
+    public static function showOrders(){
+
         global $db;
+
         $sql = "SELECT * FROM orders";
+
         $stmt = $db->query($sql);
-        if($stmt && $stmt->num_rows>0){
-            $arrayFormat = $stmt->fetch_all(MYSQLI_ASSOC);
-            return array_map(fn($data) => (object) $data, $arrayFormat);
+
+        if($stmt && $stmt->num_rows > 0){
+
+            $array = $stmt->fetch_all(MYSQLI_ASSOC);
+
+            return array_map(fn($row)=>(object)$row,$array);
+
         }
-        else{
-            return null;
-        }
+
+        return [];
     }
-       // update
+
+    // Update
     public function update($id){
+
         global $db;
-        $sql = "UPDATE orders SET '$this->$order_id', '$this->cumstomer_id', '$this->table_id', '$this-> $puser_id', '$this->$porder_data', '$this->$ptotal_amount', '$this->$porder_status', WHERE id=$id";
-        $stmt = $db->query($sql);
-        if ($stmt) {
-            redirect();
-            exit;
-        } else {
-            echo "Failed to update data.";
+
+        $sql = "UPDATE orders SET
+
+        customer_id='$this->customer_id',
+        table_id='$this->table_id',
+        user_id='$this->user_id',
+        order_date='$this->order_date',
+        total_amount='$this->total_amount',
+        order_status='$this->order_status'
+
+        WHERE order_id='$id'";
+
+        if($db->query($sql)){
+            echo "Updated Successfully!";
+        }else{
+            echo "Update Failed!";
         }
     }
 
-     // delete
+    // Delete
     public function delete($id){
+
         global $db;
-        $sql = "DELETE FROM orders WHERE id=$id";
-        $stmt = $db->query($sql);
-        if (!$stmt) {
-            echo "Failed to delete data!";
+
+        $sql = "DELETE FROM orders WHERE order_id='$id'";
+
+        if($db->query($sql)){
+            echo "Deleted Successfully!";
+        }else{
+            echo "Delete Failed!";
         }
-        return $stmt;
     }
-
-
-
-
-
-
 
 }
-
-
-
-
-
-
 
 ?>

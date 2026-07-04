@@ -3,7 +3,7 @@
    
      define("SERVER","localhost");
      define("USER","root");
-     define("DATABASE","restaurant_management");
+     define("DATABASE","rms");
      define("PASSWORD","");
 
    //Local

@@ -12,7 +12,8 @@ class UsersController
     // Create Form
     public function create()
     {
-        view("");
+        $roles = Role::showRole();
+        view("", compact("roles"));
     }
 
     // Save User
@@ -20,14 +21,24 @@ class UsersController
     {
         if (isset($_POST["btn_submit"])) {
 
+            $photo = "";
+
+            if (!empty($_FILES["photo"]["name"])) {
+                $photo = File::upload(
+                    $_FILES["photo"],
+                    "img",
+                    $_POST["full_name"]
+                );
+            }
+
             $user = new Users();
 
             $user->set(
-                $_POST["name"],
+                $_POST["full_name"],
                 $_POST["email"],
                 $_POST["password"],
                 $_POST["role_id"],
-                $_POST["photo"],
+                $photo,
                 $_POST["status"]
             );
 
@@ -37,21 +48,13 @@ class UsersController
         }
     }
 
-    // Delete User
-    public function delete()
-    {
-        $user = new Users();
-        $user->delete($_GET["id"]);
-
-        redirect();
-    }
-
     // Edit Form
     public function edit()
     {
         $data = Users::find($_GET["id"]);
+        $roles = Role::showRole();
 
-        view("user/edit", compact("data"));
+        view("", compact("data", "roles"));
     }
 
     // Update User
@@ -59,14 +62,31 @@ class UsersController
     {
         if (isset($_POST["btn_submit"])) {
 
+            $oldUser = Users::find($_POST["id"]);
+
+            $photo = $oldUser->photo;
+
+            if (!empty($_FILES["photo"]["name"])) {
+
+                if (!empty($oldUser->photo) && file_exists("img/" . $oldUser->photo)) {
+                    unlink("img/" . $oldUser->photo);
+                }
+
+                $photo = File::upload(
+                    $_FILES["photo"],
+                    "img",
+                    $_POST["full_name"]
+                );
+            }
+
             $user = new Users();
 
             $user->set(
-                $_POST["name"],
+                $_POST["full_name"],
                 $_POST["email"],
                 $_POST["password"],
                 $_POST["role_id"],
-                $_POST["photo"],
+                $photo,
                 $_POST["status"]
             );
 
@@ -74,5 +94,23 @@ class UsersController
 
             redirect();
         }
+    }
+
+    // Delete User
+    public function delete()
+    {
+        $user = Users::find($_GET["id"]);
+
+        if ($user) {
+
+            if (!empty($user->photo) && file_exists("img/" . $user->photo)) {
+                unlink("img/" . $user->photo);
+            }
+
+            $obj = new Users();
+            $obj->delete($_GET["id"]);
+        }
+
+        redirect();
     }
 }

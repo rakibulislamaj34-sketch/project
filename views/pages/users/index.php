@@ -1,58 +1,92 @@
-<?php
-// print_r($data);
-?>
-
 <div class="mb-3">
-    <a class="btn btn-primary" href="<?php echo $base_url; ?>/users/create">Create</a>
+    <a href="<?= $base_url; ?>/users/create"
+       class="btn btn-primary">
+
+        Create User
+
+    </a>
 </div>
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-hover">
+
     <thead>
+
         <tr>
+
             <th>SL</th>
-            <th>ID</th>
-            <th>Full Name</th>
+            <th>Name</th>
             <th>Email</th>
-            <th>Password</th>
-            <th>Role ID</th>
+            <th>Role</th>
             <th>Photo</th>
             <th>Status</th>
             <th width="180">Action</th>
+
         </tr>
+
     </thead>
 
     <tbody>
 
-        <?php
+    <?php
 
-        foreach ($data as $key => $user) {
+    $sl=1;
 
-            $key++;
+    foreach($data as $user){
 
-            echo "
-            <tr>
-                <td>$key</td>
-                <td>$user->id</td>
-                <td>$user->full_name</td>
-                <td>$user->email</td>
-                <td>$user->role_id</td>
-                <td>$user->photo</td>
-                <td>$user->status</td>
+    ?>
 
-                <td>
-                    <a class='btn btn-warning btn-sm' href='$base_url/users/edit/$user->id'>Edit</a>
+    <tr>
 
-                    <a class='btn btn-danger btn-sm'
-                       href='$base_url/users/delete/$user->id'
-                       onclick=\"return confirm('Are you sure?')\">
-                       Delete
-                    </a>
-                </td>
-            </tr>
-            ";
-        }
+        <td><?= $sl++; ?></td>
 
-        ?>
+        <td><?= $user->full_name; ?></td>
+
+        <td><?= $user->email; ?></td>
+
+        <td><?= $user->role_name; ?></td>
+
+        <td>
+
+            <?php if(!empty($user->photo)){ ?>
+
+                <img src="<?= $base_url; ?>/img/<?= $user->photo; ?>"
+                     width="60"
+                     height="60"
+                     class="img-thumbnail">
+
+            <?php }else{ ?>
+
+                No Photo
+
+            <?php } ?>
+
+        </td>
+
+        <td><?= $user->status; ?></td>
+
+        <td>
+
+            <a href="<?= $base_url; ?>/users/edit/<?= $user->id; ?>"
+               class="btn btn-warning btn-sm">
+
+                Edit
+
+            </a>
+
+            <a href="<?= $base_url; ?>/users/delete/<?= $user->id; ?>"
+               class="btn btn-danger btn-sm"
+               onclick="return confirm('Delete this user?')">
+
+                Delete
+
+            </a>
+
+        </td>
+
+    </tr>
+
+    <?php } ?>
 
     </tbody>
+
 </table>

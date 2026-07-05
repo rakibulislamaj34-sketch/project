@@ -1,73 +1,104 @@
-<?php
-// print_r($data);
-?>
+<form method="post"
+      action="<?= $base_url; ?>/users/update"
+      enctype="multipart/form-data">
 
-<div class="card">
-    <div class="card-body">
+    <input type="hidden" name="id" value="<?= $data->id; ?>">
 
-        <form method="post" action="<?php echo $base_url; ?>/users/update">
+    <div class="mb-3">
+        <label>Full Name</label>
+        <input type="text"
+               name="full_name"
+               class="form-control"
+               value="<?= $data->full_name; ?>">
+    </div>
 
-            <input type="hidden" name="id" value="<?php echo $data->id ?? ''; ?>">
+    <div class="mb-3">
+        <label>Email</label>
+        <input type="email"
+               name="email"
+               class="form-control"
+               value="<?= $data->email; ?>">
+    </div>
 
-            <div class="mb-3">
-                <label class="form-label">Full Name</label>
-                <input
-                    type="text"
-                    name="full_name"
-                    class="form-control"
-                    value="<?php echo $data->full_name ?? ''; ?>">
-            </div>
+    <div class="mb-3">
+        <label>Password</label>
+        <input type="password"
+               name="password"
+               class="form-control"
+               placeholder="Leave blank to keep old password">
+    </div>
 
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    class="form-control"
-                    value="<?php echo $data->email ?? ''; ?>">
-            </div>
+    <div class="mb-3">
+        <label>Role</label>
 
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input
-                    type="text"
-                    name="password"
-                    class="form-control"
-                    value="">
-            </div>
+        <select name="role_id" class="form-control">
 
-            <div class="mb-3">
-                <label class="form-label">Role ID</label>
-                <input
-                    type="number"
-                    name="role_id"
-                    class="form-control"
-                    value="<?php echo $data->role_id ?? ''; ?>">
-            </div>
+            <?php foreach($roles as $role){ ?>
 
-            <div class="mb-3">
-                <label class="form-label">Photo</label>
-                <input
-                    type="text"
-                    name="photo"
-                    class="form-control"
-                    value="<?php echo $data->photo ?? ''; ?>">
-            </div>
+                <option value="<?= $role->id; ?>"
+                    <?= ($role->id==$data->role_id)?"selected":""; ?>>
 
-            <div class="mb-3">
-                <label class="form-label">Status</label>
-                <input
-                    type="text"
-                    name="status"
-                    class="form-control"
-                    value="<?php echo $data->status ?? ''; ?>">
-            </div>
+                    <?= $role->name; ?>
 
-            <button type="submit" name="btn_submit" class="btn btn-primary">
-                Update
-            </button>
+                </option>
 
-        </form>
+            <?php } ?>
+
+        </select>
+    </div>
+
+    <div class="mb-3">
+
+        <label>Current Photo</label><br>
+
+        <?php if(!empty($data->photo)){ ?>
+
+            <img src="<?= $base_url; ?>/uploads/users/<?= $data->photo; ?>"
+                 width="80"
+                 class="img-thumbnail">
+
+        <?php } ?>
 
     </div>
-</div>
+
+    <div class="mb-3">
+
+        <label>Change Photo</label>
+
+        <input type="file"
+               name="photo"
+               class="form-control">
+
+    </div>
+
+    <div class="mb-3">
+
+        <label>Status</label>
+
+        <select name="status" class="form-control">
+
+            <option value="Active"
+                <?=($data->status=="Active")?"selected":"";?>>
+
+                Active
+
+            </option>
+
+            <option value="Inactive"
+                <?=($data->status=="Inactive")?"selected":"";?>>
+
+                Inactive
+
+            </option>
+
+        </select>
+
+    </div>
+
+    <button class="btn btn-success" name="btn_submit">
+
+        Update
+
+    </button>
+
+</form>

@@ -55,7 +55,7 @@ class PurchaseController
     {
         $data = Purchase::find($_GET["id"]);
 
-        view("purchase/edit", compact("data"));
+        view("", compact("data"));
     }
 
     // Update Purchase

@@ -1,6 +1,5 @@
 <?php
-echo "Role Model Loaded";
-exit;
+
 
 class role
 {
@@ -22,7 +21,7 @@ class role
     {
         global $db;
 
-        $sql = "INSERT INTO role
+        $sql = "INSERT INTO roles
                 (name, email, description)
                 VALUES
                 (
@@ -44,7 +43,7 @@ class role
     {
         global $db;
 
-        $sql = "SELECT * FROM role";
+        $sql = "SELECT * FROM roles";
 
         $result = $db->query($sql);
 
@@ -65,7 +64,7 @@ class role
     {
         global $db;
 
-        $sql = "SELECT * FROM role WHERE id='$id'";
+        $sql = "SELECT * FROM roles WHERE id='$id'";
 
         $result = $db->query($sql);
 
@@ -81,7 +80,7 @@ class role
     {
         global $db;
 
-        $sql = "UPDATE role SET
+        $sql = "UPDATE roles SET
                     name='$this->name',
                     email='$this->email',
                     description='$this->description'
@@ -100,7 +99,8 @@ class role
     {
         global $db;
 
-        $sql = "DELETE FROM role WHERE id='$id'";
+        $sql = "DELETE FROM roles
+         WHERE id='$id'";
 
         if ($db->query($sql)) {
             return true;

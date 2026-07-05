@@ -22,7 +22,7 @@
                         <th>SL</th>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Email</th>
+                       
                         <th>Description</th>
                         <th width="180">Action</th>
                     </tr>
@@ -43,7 +43,7 @@
                             <td>{$sl}</td>
                             <td>{$role->id}</td>
                             <td>{$role->name}</td>
-                            <td>{$role->email}</td>
+                      
                             <td>{$role->description}</td>
 
                             <td>

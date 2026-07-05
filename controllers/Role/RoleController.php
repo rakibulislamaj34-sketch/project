@@ -5,7 +5,7 @@ class rolecontroller
     // Show All
     public function index()
     {
-        $data = role::showrole();
+        $data = Role::showrole();
 
         view("", compact("data"));
     }

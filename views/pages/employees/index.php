@@ -3,7 +3,7 @@
 ?>
 
 <div class="mb-3">
-    <a href="<?php echo $base_url; ?>/employees/create" class="btn btn-primary">
+    <a href="<?= $base_url; ?>/employees/create" class="btn btn-primary">
         Create Employee
     </a>
 </div>
@@ -18,41 +18,38 @@
             <th>Salary</th>
             <th>Created At</th>
             <th>Updated At</th>
-            <th width="170">Action</th>
+            <th width="180">Action</th>
         </tr>
     </thead>
 
     <tbody>
-        <?php if (!empty($data)) { ?>
-            <?php foreach ($data as $employee) { ?>
+        <?php if (!empty($data)) : ?>
+            <?php foreach ($data as $employee) : ?>
                 <tr>
-                    <td><?php echo $employee->id; ?></td>
-                    <td><?php echo $employee->name; ?></td>
-                    <td><?php echo $employee->designation; ?></td>
-                    <td><?php echo $employee->phone; ?></td>
-                    <td><?php echo $employee->salary; ?></td>
-                    <td><?php echo $employee->created_at; ?></td>
-                    <td><?php echo $employee->updated_at; ?></td>
+                    <td><?= $employee->id ?></td>
+                    <td><?= $employee->name ?></td>
+                    <td><?= $employee->designation ?></td>
+                    <td><?= $employee->phone ?></td>
+                    <td><?= $employee->salary ?></td>
+                    <td><?= $employee->created_at ?></td>
+                    <td><?= $employee->updated_at ?></td>
                     <td>
-                        <a href="<?php echo $base_url; ?>/employees/edit/<?php echo $employee->id; ?>"
-                           class="btn btn-warning btn-sm">
+                        <a href="<?= $base_url; ?>/employees/edit/<?= $employee->id; ?>" class="btn btn-sm btn-warning">
                             Edit
                         </a>
 
-                        <a href="<?php echo $base_url; ?>/employees/delete/<?php echo $employee->id; ?>"
-                           class="btn btn-danger btn-sm"
+                        <a href="<?= $base_url; ?>/employees/delete/<?= $employee->id; ?>"
+                           class="btn btn-sm btn-danger"
                            onclick="return confirm('Are you sure you want to delete this employee?');">
                             Delete
                         </a>
                     </td>
                 </tr>
-            <?php } ?>
-        <?php } else { ?>
+            <?php endforeach; ?>
+        <?php else : ?>
             <tr>
-                <td colspan="8" class="text-center">
-                    No Employee Found.
-                </td>
+                <td colspan="8" class="text-center">No Employee Found.</td>
             </tr>
-        <?php } ?>
+        <?php endif; ?>
     </tbody>
 </table>

@@ -23,6 +23,7 @@ class Employees
     {
         global $db;
 
+
         $sql = "INSERT INTO employees
                 (name, designation, phone, salary)
                 VALUES
@@ -85,7 +86,7 @@ class Employees
         return $db->query($sql);
     }
 
-    // Delete
+// Delete
     public static function delete($id)
     {
         global $db;
@@ -94,4 +95,4 @@ class Employees
 
         return $db->query($sql);
     }
-}
+}    

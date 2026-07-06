@@ -52,7 +52,7 @@ class EmployeesController
 
             $employees= new Employees();
 
-            $employee->set(
+            $employees->set(
                 $_POST["id"],
                 $_POST["name"],
                 $_POST["designation"],

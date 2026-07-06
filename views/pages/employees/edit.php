@@ -1,5 +1,8 @@
+
 <?php
-print_r($employees);
+if (isset($employees->employees)) {
+    $employees = $employees->employees;
+}
 ?>
 
 <div class="container mt-4">
@@ -72,11 +75,7 @@ print_r($employees);
 
         <div class="mb-3">
             <label class="form-label">Salary</label>
-            <input type="number"
-                   name="salary"
-                   class="form-control"
-                   value="<?php echo $employees->salary; ?>"
-                   required>
+            <input type="number" step="any" name="salary" class="form-control" value="<?php echo htmlspecialchars($employees->salary ?? '0', ENT_QUOTES, 'UTF-8'); ?>" required>
         </div>
 
         <button type="submit" name="btn_update" class="btn btn-primary">

@@ -1,30 +1,37 @@
 <?php
 
-class role
+class Customers
 {
     public $id;
     public $name;
-    public $email;
-    public $description;
+    public $phone;
+    public $address;
+
+    public function __construct()
+    {
+    }
 
     // Set Data
-    public function set($name, $email, $description)
+    public function set($id, $name, $phone, $address)
     {
+        $this->id = $id;
         $this->name = $name;
-        $this->email = $email;
-        $this->description = $description;
+        $this->phone = $phone;
+        $this->address = $address;
     }
 
     // Create
-    public function save()
+    public function create()
     {
         global $db;
 
-        $sql = "INSERT INTO role (name, email, description)
-                VALUES (
+        $sql = "INSERT INTO customers
+                (name, phone, address)
+                VALUES
+                (
                     '$this->name',
-                    '$this->email',
-                    '$this->description'
+                    '$this->phone',
+                    '$this->address'
                 )";
 
         if ($db->query($sql)) {
@@ -35,22 +42,22 @@ class role
         }
     }
 
-    // Read All
-    public static function showrole()
+    // Show All
+    public static function all()
     {
         global $db;
 
-        $sql = "SELECT * FROM role";
+        $sql = "SELECT * FROM customers";
 
         $result = $db->query($sql);
 
         if ($result && $result->num_rows > 0) {
 
-            $roles = $result->fetch_all(MYSQLI_ASSOC);
+            $customers = $result->fetch_all(MYSQLI_ASSOC);
 
             return array_map(function ($row) {
                 return (object)$row;
-            }, $roles);
+            }, $customers);
         }
 
         return [];
@@ -61,7 +68,7 @@ class role
     {
         global $db;
 
-        $sql = "SELECT * FROM role WHERE id='$id'";
+        $sql = "SELECT * FROM customers WHERE id='$id'";
 
         $result = $db->query($sql);
 
@@ -73,15 +80,15 @@ class role
     }
 
     // Update
-    public function update($id)
+    public function update()
     {
         global $db;
 
-        $sql = "UPDATE role SET
+        $sql = "UPDATE customers SET
                     name='$this->name',
-                    email='$this->email',
-                    description='$this->description'
-                WHERE id='$id'";
+                    phone='$this->phone',
+                    address='$this->address'
+                WHERE id='$this->id'";
 
         if ($db->query($sql)) {
             return true;
@@ -92,11 +99,11 @@ class role
     }
 
     // Delete
-    public function delete($id)
+    public static function delete($id)
     {
         global $db;
 
-        $sql = "DELETE FROM role WHERE id='$id'";
+        $sql = "DELETE FROM customers WHERE id='$id'";
 
         if ($db->query($sql)) {
             return true;
@@ -106,5 +113,4 @@ class role
         }
     }
 }
-
 ?>

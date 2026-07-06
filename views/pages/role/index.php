@@ -22,7 +22,7 @@
                         <th>SL</th>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>E mail</th>
+                        <th>Email</th>
                        
                         <th>Description</th>
                         <th width="180">Action</th>

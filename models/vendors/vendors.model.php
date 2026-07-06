@@ -1,36 +1,40 @@
 <?php
 
-class Employees
+class Vendors
 {
     public $id;
     public $name;
-    public $designation;
     public $phone;
-    public $salary;
+    public $address;
+    public $email;
+
+    public function __construct()
+    {
+    }
 
     // Set Data
-    public function set($id, $name, $designation, $phone, $salary)
+    public function set($id, $name, $phone, $address, $email)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->designation = $designation;
         $this->phone = $phone;
-        $this->salary = $salary;
+        $this->address = $address;
+        $this->email = $email;
     }
 
-    // Insert
+    // Create
     public function create()
     {
         global $db;
 
-        $sql = "INSERT INTO employees
-                (name, designation, phone, salary)
+        $sql = "INSERT INTO vendors
+                (name, phone, address, email)
                 VALUES
                 (
                     '$this->name',
-                    '$this->designation',
                     '$this->phone',
-                    '$this->salary'
+                    '$this->address',
+                    '$this->email'
                 )";
 
         if ($db->query($sql)) {
@@ -45,7 +49,7 @@ class Employees
     {
         global $db;
 
-        $sql = "SELECT * FROM employees ORDER BY id DESC";
+        $sql = "SELECT * FROM vendors ORDER BY id DESC";
 
         $result = $db->query($sql);
 
@@ -63,7 +67,7 @@ class Employees
     {
         global $db;
 
-        $sql = "SELECT * FROM employees WHERE id='$id'";
+        $sql = "SELECT * FROM vendors WHERE id='$id'";
 
         $result = $db->query($sql);
 
@@ -75,11 +79,11 @@ class Employees
     {
         global $db;
 
-        $sql = "UPDATE employees SET
+        $sql = "UPDATE vendors SET
                     name='$this->name',
-                    designation='$this->designation',
                     phone='$this->phone',
-                    salary='$this->salary'
+                    address='$this->address',
+                    email='$this->email'
                 WHERE id='$this->id'";
 
         return $db->query($sql);
@@ -90,8 +94,10 @@ class Employees
     {
         global $db;
 
-        $sql = "DELETE FROM employees WHERE id='$id'";
+        $sql = "DELETE FROM vendors WHERE id='$id'";
 
         return $db->query($sql);
     }
 }
+
+?>

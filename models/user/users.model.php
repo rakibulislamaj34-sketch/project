@@ -53,10 +53,10 @@ class Users
 
         $sql = "SELECT
                     users.*,
-                    roles.name AS role_name
+                    role.name AS role_name
                 FROM users
-                LEFT JOIN roles
-                ON users.role_id = roles.id
+                LEFT JOIN role
+                ON users.role_id = role.id
                 ORDER BY users.id DESC";
 
         $result = $db->query($sql);

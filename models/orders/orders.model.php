@@ -1,125 +1,149 @@
 <?php
 
-class Orders{
-
-    public $order_id;
+class Orders
+{
+    public $id;
     public $customer_id;
     public $table_id;
     public $user_id;
     public $order_date;
+    public $cost_price;
     public $total_amount;
     public $order_status;
 
-    public function set(
-        $porder_id,
-        $pcustomer_id,
-        $ptable_id,
-        $puser_id,
-        $porder_date,
-        $ptotal_amount,
-        $porder_status
-    ){
+    public function __construct()
+    {
+    }
 
-        $this->order_id = $porder_id;
-        $this->customer_id = $pcustomer_id;
-        $this->table_id = $ptable_id;
-        $this->user_id = $puser_id;
-        $this->order_date = $porder_date;
-        $this->total_amount = $ptotal_amount;
-        $this->order_status = $porder_status;
+    // Set Data
+    public function set(
+        $id,
+        $customer_id,
+        $table_id,
+        $user_id,
+        $order_date,
+        $cost_price,
+        $total_amount,
+        $order_status
+    ) {
+        $this->id = $id;
+        $this->customer_id = $customer_id;
+        $this->table_id = $table_id;
+        $this->user_id = $user_id;
+        $this->order_date = $order_date;
+        $this->cost_price = $cost_price;
+        $this->total_amount = $total_amount;
+        $this->order_status = $order_status;
     }
 
     // Create
-    public function save(){
-
+    public function create()
+    {
         global $db;
 
         $sql = "INSERT INTO orders
-        (
-            order_id,
-            customer_id,
-            table_id,
-            user_id,
-            order_date,
-            total_amount,
-            order_status
-        )
-        VALUES
-        (
-            '$this->order_id',
-            '$this->customer_id',
-            '$this->table_id',
-            '$this->user_id',
-            '$this->order_date',
-            '$this->total_amount',
-            '$this->order_status'
-        )";
+                (
+                    customer_id,
+                    table_id,
+                    user_id,
+                    order_date,
+                    cost_price,
+                    total_amount,
+                    order_status
+                )
+                VALUES
+                (
+                    '$this->customer_id',
+                    '$this->table_id',
+                    '$this->user_id',
+                    '$this->order_date',
+                    '$this->cost_price',
+                    '$this->total_amount',
+                    '$this->order_status'
+                )";
 
-        if($db->query($sql)){
-            echo "Successfully Inserted!";
+        if ($db->query($sql)) {
             return $db->insert_id;
+        } else {
+            echo $db->error;
+            return false;
         }
-
-        return false;
     }
 
-    // Read
-    public static function showOrders(){
-
+    // Show All
+    public static function all()
+    {
         global $db;
 
         $sql = "SELECT * FROM orders";
 
-        $stmt = $db->query($sql);
+        $result = $db->query($sql);
 
-        if($stmt && $stmt->num_rows > 0){
+        if ($result && $result->num_rows > 0) {
 
-            $array = $stmt->fetch_all(MYSQLI_ASSOC);
+            $orders = $result->fetch_all(MYSQLI_ASSOC);
 
-            return array_map(fn($row)=>(object)$row,$array);
-
+            return array_map(function ($row) {
+                return (object)$row;
+            }, $orders);
         }
 
         return [];
     }
 
-    // Update
-    public function update($id){
+    // Find
+    public static function find($id)
+    {
+        global $db;
 
+        $sql = "SELECT * FROM orders WHERE id='$id'";
+
+        $result = $db->query($sql);
+
+        if ($result && $result->num_rows > 0) {
+            return (object)$result->fetch_assoc();
+        }
+
+        return null;
+    }
+
+    // Update
+    public function update()
+    {
         global $db;
 
         $sql = "UPDATE orders SET
+                    customer_id='$this->customer_id',
+                    table_id='$this->table_id',
+                    user_id='$this->user_id',
+                    order_date='$this->order_date',
+                    cost_price='$this->cost_price',
+                    total_amount='$this->total_amount',
+                    order_status='$this->order_status'
+                WHERE id='$this->id'";
 
-        customer_id='$this->customer_id',
-        table_id='$this->table_id',
-        user_id='$this->user_id',
-        order_date='$this->order_date',
-        total_amount='$this->total_amount',
-        order_status='$this->order_status'
-
-        WHERE order_id='$id'";
-
-        if($db->query($sql)){
-            echo "Updated Successfully!";
-        }else{
-            echo "Update Failed!";
+        if ($db->query($sql)) {
+            return true;
+        } else {
+            echo $db->error;
+            return false;
         }
     }
 
     // Delete
-    public function delete($id){
-
+    public static function delete($id)
+    {
         global $db;
 
-        $sql = "DELETE FROM orders WHERE order_id='$id'";
+        $sql = "DELETE FROM orders WHERE id='$id'";
 
-        if($db->query($sql)){
-            echo "Deleted Successfully!";
-        }else{
-            echo "Delete Failed!";
+        if ($db->query($sql)) {
+            return true;
+        } else {
+            echo $db->error;
+            return false;
         }
     }
-
 }
 
 ?>

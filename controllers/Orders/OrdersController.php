@@ -6,16 +6,20 @@ class OrdersController
     public function index()
     {
         $data = Orders::all();
+
         view("", compact("data"));
     }
 
     // Create Form
     public function create()
     {
-      $customer = Customers::all();
-    //   $table = Table::all();
-      
-        view("",compact("customer"));
+        $customer = Customers::all();
+        $table    = Tables::all();
+         $users     = Users::showUser();
+        //  print_r($customer);
+         
+
+        view("", compact("customer", "table","users"));
     }
 
     // Save Order
@@ -38,16 +42,19 @@ class OrdersController
 
             $order->create();
 
-            redirect();
+            redirect("orders");
         }
     }
 
     // Edit Form
     public function edit($id)
     {
-        $order = Orders::find($id);
+        $order    = Orders::find($id);
+        $customer = Customers::all();
+        $table    = Tables::all();
+       
 
-        view("", compact("order"));
+        view("", compact("order", "customer", "table", ));
     }
 
     // Update Order
@@ -70,7 +77,7 @@ class OrdersController
 
             $order->update();
 
-            redirect();
+            redirect("orders");
         }
     }
 
@@ -79,6 +86,6 @@ class OrdersController
     {
         Orders::delete($id);
 
-        redirect();
+        redirect("orders");
     }
 }

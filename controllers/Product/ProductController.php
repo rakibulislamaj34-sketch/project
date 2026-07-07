@@ -35,7 +35,7 @@ class ProductController
 
                 print_r( $product->create());
 
-            // redirect("product");
+           redirect("product");
         }
     }
 

@@ -1,6 +1,7 @@
 <div class="container mt-4">
 
     <div class="card">
+
         <div class="card-header">
             <h3>Create Order</h3>
         </div>
@@ -10,8 +11,18 @@
             <form action="<?php echo $base_url; ?>/orders/save" method="post">
 
                 <div class="mb-3">
-                    <label class="form-label">Customer ID</label>
-                    <input type="number" name="customer_id" class="form-control" required>
+                    <label class="form-label">Customer</label>
+
+                    <select name="customer_id" class="form-control" required>
+                        <option value="">-- Select Customer --</option>
+
+                        <?php foreach ($customer as $data) { ?>
+                            <option value="<?php echo $data->id; ?>">
+                                <?php echo $data->name; ?>
+                            </option>
+                        <?php } ?>
+
+                    </select>
                 </div>
 
                 <div class="mb-3">
@@ -41,7 +52,8 @@
 
                 <div class="mb-3">
                     <label class="form-label">Order Status</label>
-                    <select name="order_status" class="form-control">
+
+                    <select name="order_status" class="form-control" required>
                         <option value="Pending">Pending</option>
                         <option value="Processing">Processing</option>
                         <option value="Completed">Completed</option>
@@ -60,6 +72,7 @@
             </form>
 
         </div>
+
     </div>
 
 </div>

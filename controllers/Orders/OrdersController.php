@@ -12,7 +12,10 @@ class OrdersController
     // Create Form
     public function create()
     {
-        view("");
+      $customer = Customers::all();
+    //   $table = Table::all();
+      
+        view("",compact("customer"));
     }
 
     // Save Order

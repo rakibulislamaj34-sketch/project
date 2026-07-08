@@ -19,7 +19,7 @@ class OrdersController
         //  print_r($customer);
          
 
-        view("", compact("customer", "table","users"));
+      
     }
 
     // Save Order

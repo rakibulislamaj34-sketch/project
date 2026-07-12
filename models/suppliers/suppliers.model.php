@@ -2,27 +2,34 @@
 
 class Suppliers
 {
-    public $id;
-    public $name;
+    public $Supplier_id;
+    public $supplier_name;
     public $phone;
     public $email;
     public $bank_account;
     public $cost_price;
     public $selling_price;
+    public $unit;
 
-    public function __construct()
-    {
-    }
-
-    public function set($id, $name, $phone, $email, $bank_account, $cost_price, $selling_price)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->phone = $phone;
-        $this->email = $email;
-        $this->bank_account = $bank_account;
-        $this->cost_price = $cost_price;
+    // Set Data
+    public function set(
+        $Supplier_id,
+        $supplier_name,
+        $phone,
+        $email,
+        $bank_account,
+        $cost_price,
+        $selling_price,
+        $unit
+    ) {
+        $this->Supplier_id   = $Supplier_id;
+        $this->supplier_name = $supplier_name;
+        $this->phone         = $phone;
+        $this->email         = $email;
+        $this->bank_account  = $bank_account;
+        $this->cost_price    = $cost_price;
         $this->selling_price = $selling_price;
+        $this->unit          = $unit;
     }
 
     // Create
@@ -31,21 +38,62 @@ class Suppliers
         global $db;
 
         $sql = "INSERT INTO suppliers
-        (id, name, phone, email, bank_account, cost_price, selling_price)
-        VALUES
-        (
-            '$this->id',
-            '$this->name',
-            '$this->phone',
-            '$this->email',
-            '$this->bank_account',
-            '$this->cost_price',
-            '$this->selling_price'
-        )";
+                (
+                    supplier_name,
+                    phone,
+                    email,
+                    bank_account,
+                    cost_price,
+                    selling_price,
+                    unit
+                )
+                VALUES
+                (
+                    '$this->supplier_name',
+                    '$this->phone',
+                    '$this->email',
+                    '$this->bank_account',
+                    '$this->cost_price',
+                    '$this->selling_price',
+                    '$this->unit'
+                )";
 
-        $db->query($sql);
+        if ($db->query($sql)) {
+            return $db->insert_id;
+        }
 
-        return $db->insert_id;
+        die($db->error);
+    }
+
+    // Show All
+    public static function all()
+    {
+        global $db;
+
+        $sql = "SELECT * FROM suppliers ORDER BY Supplier_id DESC";
+
+        $result = $db->query($sql);
+
+        $data = [];
+
+        while ($row = $result->fetch_object()) {
+            $data[] = $row;
+        }
+
+        return $data;
+    }
+
+    // Find
+    public static function find($Supplier_id)
+    {
+        global $db;
+
+        $sql = "SELECT * FROM suppliers
+                WHERE Supplier_id='$Supplier_id'";
+
+        $result = $db->query($sql);
+
+        return $result->fetch_object();
     }
 
     // Update
@@ -54,43 +102,35 @@ class Suppliers
         global $db;
 
         $sql = "UPDATE suppliers SET
-                name='$this->name',
-                phone='$this->phone',
-                email='$this->email',
-                bank_account='$this->bank_account',
-                cost_price='$this->cost_price',
-                selling_price='$this->selling_price'
-                WHERE id='$this->id'";
+                    supplier_name='$this->supplier_name',
+                    phone='$this->phone',
+                    email='$this->email',
+                    bank_account='$this->bank_account',
+                    cost_price='$this->cost_price',
+                    selling_price='$this->selling_price',
+                    unit='$this->unit'
+                WHERE Supplier_id='$this->Supplier_id'";
 
-        return $db->query($sql);
-    }
+        if ($db->query($sql)) {
+            return true;
+        }
 
-    // Show All
-    public static function all()
-    {
-        global $db;
-
-        $stmt = $db->query("SELECT * FROM suppliers");
-
-        return array_map(fn($d) => (object)$d, $stmt->fetch_all(MYSQLI_ASSOC));
-    }
-
-    // Find
-    public static function find($id)
-    {
-        global $db;
-
-        $stmt = $db->query("SELECT * FROM suppliers WHERE id='$id'");
-
-        return $stmt->fetch_object();
+        die($db->error);
     }
 
     // Delete
-    public static function delete($id)
+    public static function delete($Supplier_id)
     {
         global $db;
 
-        return $db->query("DELETE FROM suppliers WHERE id='$id'");
+        $sql = "DELETE FROM suppliers
+                WHERE Supplier_id='$Supplier_id'";
+
+        if ($db->query($sql)) {
+            return true;
+        }
+
+        die($db->error);
     }
 }
 

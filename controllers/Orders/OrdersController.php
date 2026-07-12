@@ -17,6 +17,7 @@ class OrdersController
         $table    = Tables::all();
          $users     = Users::showUser();
         //  print_r($customer);
+         view("", compact("customer","table","users"));
          
 
       

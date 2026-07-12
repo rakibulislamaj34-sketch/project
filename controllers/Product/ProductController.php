@@ -2,7 +2,7 @@
 
 class ProductController
 {
-    // Show All
+    // Show All Products
     public function index()
     {
         $data = Product::all();
@@ -13,29 +13,42 @@ class ProductController
     // Create Form
     public function create()
     {
-        view("");
+        $uoms = Uoms::all();
+        view("", compact("uoms"));
     }
 
-    // Save
+    // Save Product
     public function save()
     {
-        // print_r($_POST);
         if (isset($_POST["btn_submit"])) {
 
-                $product = new Product();
-                $product->name=$_POST["name"];
-                $product->purchase_price=$_POST["purchase_price"];
-                $product->sell_price=$_POST["sell_price"];
-                $product->uom_id=$_POST["uom_id"];
-                $product->description=$_POST["description"];
-                $product->photo= upload($_FILES["photo"], "img", $_POST["name"]);  
-                $product->brand_id=$_POST["brand_id"];
-                $product->category_id=$_POST["category_id"];
-               
+            $photo = "";
 
-                print_r( $product->create());
+            if (!empty($_FILES["photo"]["name"])) {
+                $photo = File::upload(
+                    $_FILES["photo"],
+                    "img",
+                    $_POST["name"]
+                );
+            }
 
-           redirect("product");
+            $product = new Product();
+
+            $product->set(
+                "", // id
+                $_POST["name"],
+                $_POST["purchase_price"],
+                $_POST["sell_price"],
+                $_POST["uom_id"],
+                $_POST["description"],
+                $photo,
+                $_POST["brand_id"],
+                $_POST["category_id"]
+            );
+
+            $product->create();
+
+            redirect("product");
         }
     }
 
@@ -44,13 +57,27 @@ class ProductController
     {
         $product = Product::find($id);
 
-        view("", compact(""));
+        $uoms = Uoms::all();
+        view(
+            "",
+            compact("product", "uoms")
+        );
     }
 
-    // Update
+    // Update Product
     public function update()
     {
         if (isset($_POST["btn_update"])) {
+
+            $photo = $_POST["old_photo"];
+
+            if (!empty($_FILES["photo"]["name"])) {
+                $photo = File::upload(
+                    $_FILES["photo"],
+                    "img",
+                    $_POST["name"]
+                );
+            }
 
             $product = new Product();
 
@@ -61,7 +88,7 @@ class ProductController
                 $_POST["sell_price"],
                 $_POST["uom_id"],
                 $_POST["description"],
-                $_POST["photo"],
+                $photo,
                 $_POST["brand_id"],
                 $_POST["category_id"]
             );
@@ -72,7 +99,7 @@ class ProductController
         }
     }
 
-    // Delete
+    // Delete Product
     public function delete($id)
     {
         Product::delete($id);

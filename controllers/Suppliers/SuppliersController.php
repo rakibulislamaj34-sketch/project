@@ -6,12 +6,14 @@ class SuppliersController
     public function index()
     {
         $data = Suppliers::all();
+
         view("", compact("data"));
     }
 
     // Create Form
     public function create()
     {
+        
         view("");
     }
 
@@ -24,25 +26,25 @@ class SuppliersController
 
             $supplier->set(
                 "",
-                $_POST["name"],
+                $_POST["supplier_name"],
                 $_POST["phone"],
                 $_POST["email"],
                 $_POST["bank_account"],
                 $_POST["cost_price"],
-                $_POST["selling_price"]
+                $_POST["selling_price"],
+                $_POST["unit"]
             );
 
             $supplier->create();
 
-           redirect();
-         
+            redirect("suppliers");
         }
     }
 
     // Edit Form
-    public function edit($id)
+    public function edit($Supplier_id)
     {
-        $supplier = Suppliers::find($id);
+        $supplier = Suppliers::find($Supplier_id);
 
         view("", compact("supplier"));
     }
@@ -55,26 +57,27 @@ class SuppliersController
             $supplier = new Suppliers();
 
             $supplier->set(
-                $_POST["id"],
-                $_POST["name"],
+                $_POST["Supplier_id"],
+                $_POST["supplier_name"],
                 $_POST["phone"],
                 $_POST["email"],
                 $_POST["bank_account"],
                 $_POST["cost_price"],
-                $_POST["selling_price"]
+                $_POST["selling_price"],
+                $_POST["unit"]
             );
 
             $supplier->update();
 
-           redirect();
+            redirect("suppliers");
         }
     }
 
     // Delete Supplier
-    public function delete($id)
+    public function delete($Supplier_id)
     {
-        Suppliers::delete($id);
+        Suppliers::delete($Supplier_id);
 
-       redirect();
+        redirect("suppliers");
     }
-}    
+}

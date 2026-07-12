@@ -13,7 +13,7 @@ class InventoryController
     // Create Form
     public function create()
     {
-        $Supplier = Suppliers::all();
+       $Supplier = Suppliers::all();
 
         view("", compact("Supplier"));
     }

@@ -12,13 +12,18 @@ class Product
     public $brand_id;
     public $category_id;
 
-    public function __construct()
-    {
-    }
-
     // Set Data
-    public function set($id, $name, $purchase_price, $sell_price, $uom_id, $description, $photo, $brand_id, $category_id)
-    {
+    public function set(
+        $id,
+        $name,
+        $purchase_price,
+        $sell_price,
+        $uom_id,
+        $description,
+        $photo,
+        $brand_id,
+        $category_id
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->purchase_price = $purchase_price;
@@ -30,13 +35,22 @@ class Product
         $this->category_id = $category_id;
     }
 
-    // Insert
+    // Create
     public function create()
     {
         global $db;
 
         $sql = "INSERT INTO product
-                (name, purchase_price, sell_price, uom_id, description, photo, brand_id, category_id)
+                (
+                    name,
+                    purchase_price,
+                    sell_price,
+                    uom_id,
+                    description,
+                    photo,
+                    brand_id,
+                    category_id
+                )
                 VALUES
                 (
                     '$this->name',
@@ -49,11 +63,11 @@ class Product
                     '$this->category_id'
                 )";
 
-        if ($db->query($sql)) {
-            return $db->insert_id;
+        if (!$db->query($sql)) {
+            die($db->error);
         }
 
-        die($db->error);
+        return $db->insert_id;
     }
 
     // Show All
@@ -61,11 +75,9 @@ class Product
     {
         global $db;
 
-        $sql = "SELECT * FROM product ORDER BY id DESC";
-
-        $result = $db->query($sql);
-
         $data = [];
+
+        $result = $db->query("SELECT * FROM product ORDER BY id DESC");
 
         while ($row = $result->fetch_object()) {
             $data[] = $row;
@@ -74,14 +86,12 @@ class Product
         return $data;
     }
 
-    // Find One
+    // Find By ID
     public static function find($id)
     {
         global $db;
 
-        $sql = "SELECT * FROM product WHERE id='$id'";
-
-        $result = $db->query($sql);
+        $result = $db->query("SELECT * FROM product WHERE id='$id'");
 
         return $result->fetch_object();
     }
@@ -110,8 +120,6 @@ class Product
     {
         global $db;
 
-        $sql = "DELETE FROM product WHERE id='$id'";
-
-        return $db->query($sql);
+        return $db->query("DELETE FROM product WHERE id='$id'");
     }
 }

@@ -28,7 +28,37 @@ class PurchaseApi
             $purchase->created_at  = date("Y-m-d H:i:s");
             $purchase->updated_at  = date("Y-m-d H:i:s");
 
-            
+            $purchase_id = $purchase->save();
+
+            foreach ($products as $key => $products) {
+
+              $purchase_details = new PurchaseDetail();
+              $price  = Product::find($product->id)->price;
+              $purchase_details->purchase_id = $purchase_id;
+              $purchase_details->product_id = $product_id;
+              $purchase_details->qty = $product->qty;
+              $purchase_details->price = $price;
+              $purchase_details->vat = 0;
+              $purchase_details->discount =0;
+              $purchase_details->save();
+
+
+
+
+               $stock = new Stock();
+
+$stock->product_id     = $product->id;
+$stock->quantity       = $product->qty;
+$stock->transaction_id = 1;     
+$stock->warehouse_id   = 1;
+$stock->created_at = date("Y-m-d H:i:s");
+ $stock->lot_id = "LOT" . date("Y-m-d H:i:s") . $product->id;
+$stock->save();
+              
+          
+                
+
+            }
 
 
 

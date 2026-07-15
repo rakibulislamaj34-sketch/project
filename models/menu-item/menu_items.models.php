@@ -2,24 +2,22 @@
 
 class MenuItems
 {
-    public $item_id;
+    public $id;
     public $category_id;
-    public $item_name;
+    public $name;
     public $price;
     public $status;
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     // Set Data
-    public function set($item_id, $category_id, $item_name, $price, $status)
+    public function set($id, $category_id, $name, $price, $status)
     {
-        $this->item_id = $item_id;
+        $this->id          = $id;
         $this->category_id = $category_id;
-        $this->item_name = $item_name;
-        $this->price = $price;
-        $this->status = $status;
+        $this->name        = $name;
+        $this->price       = $price;
+        $this->status      = $status;
     }
 
     // Create
@@ -27,20 +25,60 @@ class MenuItems
     {
         global $db;
 
-        $stmt = $db->query("
-            INSERT INTO menu_item
-            (item_id, category_id, item_name, price, status)
-            VALUES
-            (
-                '$this->item_id',
-                '$this->category_id',
-                '$this->item_name',
-                '$this->price',
-                '$this->status'
-            )
-        ");
+        $sql = "INSERT INTO menu_item
+                (
+                    category_id,
+                    name,
+                    price,
+                    status
+                )
+                VALUES
+                (
+                    '$this->category_id',
+                    '$this->name',
+                    '$this->price',
+                    '$this->status'
+                )";
 
-        return $db->insert_id;
+        if ($db->query($sql)) {
+            return $db->insert_id;
+        }
+
+        die($db->error);
+    }
+
+    // Show All
+    public static function all()
+    {
+        global $db;
+
+        $sql = "SELECT *
+                FROM menu_item
+                ORDER BY id DESC";
+
+        $result = $db->query($sql);
+
+        $data = [];
+
+        while ($row = $result->fetch_object()) {
+            $data[] = $row;
+        }
+
+        return $data;
+    }
+
+    // Find By ID
+    public static function find($id)
+    {
+        global $db;
+
+        $sql = "SELECT *
+                FROM menu_item
+                WHERE id='$id'";
+
+        $result = $db->query($sql);
+
+        return $result->fetch_object();
     }
 
     // Update
@@ -48,49 +86,33 @@ class MenuItems
     {
         global $db;
 
-        $stmt = $db->query("
-            UPDATE menu_item
-            SET
-                category_id='$this->category_id',
-                item_name='$this->item_name',
-                price='$this->price',
-                status='$this->status'
-            WHERE item_id='$this->item_id'
-        ");
+        $sql = "UPDATE menu_item
+                SET
+                    category_id='$this->category_id',
+                    name='$this->name',
+                    price='$this->price',
+                    status='$this->status'
+                WHERE id='$this->id'";
 
-        return $stmt;
-    }
+        if ($db->query($sql)) {
+            return true;
+        }
 
-    // Read All
-    public static function all()
-    {
-        global $db;
-
-        $stmt = $db->query("SELECT * FROM menu_item");
-
-        return array_map(
-            fn($d) => (object)$d,
-            $stmt->fetch_all(MYSQLI_ASSOC)
-        );
-    }
-
-    // Find One
-    public static function find($item_id)
-    {
-        global $db;
-
-        $stmt = $db->query("SELECT * FROM menu_item WHERE item_id='$item_id'");
-
-        return $stmt->fetch_object();
+        die($db->error);
     }
 
     // Delete
-    public static function delete($item_id)
+    public static function delete($id)
     {
         global $db;
 
-        return $db->query("DELETE FROM menu_item WHERE item_id='$item_id'");
+        $sql = "DELETE FROM menu_item
+                WHERE id='$id'";
+
+        if ($db->query($sql)) {
+            return true;
+        }
+
+        die($db->error);
     }
 }
-
-?>

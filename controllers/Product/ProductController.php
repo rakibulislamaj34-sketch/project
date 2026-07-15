@@ -10,11 +10,16 @@ class ProductController
         view("", compact("data"));
     }
 
-    // Create Form
+    // Create Product Form
     public function create()
     {
         $uoms = Uoms::all();
-        view("", compact("uoms"));
+        $brands = Brand::all();
+
+        view(
+            "",
+            compact("uoms", "brands")
+        );
     }
 
     // Save Product
@@ -35,7 +40,7 @@ class ProductController
             $product = new Product();
 
             $product->set(
-                "", // id
+                "",
                 $_POST["name"],
                 $_POST["purchase_price"],
                 $_POST["sell_price"],
@@ -52,15 +57,21 @@ class ProductController
         }
     }
 
-    // Edit Form
+    // Edit Product Form
     public function edit($id)
     {
         $product = Product::find($id);
 
         $uoms = Uoms::all();
+        $brands = Brand::all();
+
         view(
             "",
-            compact("product", "uoms")
+            compact(
+                "product",
+                "uoms",
+                "brands"
+            )
         );
     }
 

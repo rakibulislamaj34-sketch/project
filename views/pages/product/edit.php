@@ -151,24 +151,24 @@
 
 
 
-                        <div class="row">
+                        <<div class="mb-3">
+    <label class="form-label">Brand</label>
 
+    <select name="brand_id" class="form-select" required>
 
-                            <div class="col-md-6 mb-3">
+        <?php foreach($brands as $brand): ?>
 
-                                <label class="form-label">
-                                    Brand ID
-                                </label>
+            <option value="<?= $brand->id; ?>"
+                <?= ($product->brand_id == $brand->id) ? 'selected' : ''; ?>>
 
+                <?= $brand->name; ?>
 
-                                <input type="number"
-                                       name="brand_id"
-                                       class="form-control"
-                                       placeholder="Brand ID"
-                                       required>
+            </option>
 
+        <?php endforeach; ?>
 
-                            </div>
+    </select>
+</div>
 
 
 

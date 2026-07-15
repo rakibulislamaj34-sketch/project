@@ -58,10 +58,20 @@
     <input type="file" name="photo" class="form-control">
      </div>
 
-        <div class="mb-3">
-            <label class="form-label">Brand ID</label>
-            <input type="number" name="brand_id" class="form-control" required>
-        </div>
+       <div class="mb-3">
+    <label class="form-label">Brand</label>
+
+    <select name="brand_id" class="form-select" required>
+        <option value="">Select Brand</option>
+
+        <?php foreach($brands as $brand): ?>
+            <option value="<?= $brand->id; ?>">
+                <?= $brand->name; ?>
+            </option>
+        <?php endforeach; ?>
+
+    </select>
+   </div>
 
         <div class="mb-3">
             <label class="form-label">Category ID</label>

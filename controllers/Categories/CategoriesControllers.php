@@ -1,6 +1,6 @@
 <?php
 
-class CategoriesControllers
+class categoriesControllers
 {
     public function index()
     {
@@ -32,7 +32,7 @@ class CategoriesControllers
 
     public function edit($id)
     {
-        $Categories = categories::find($id);
+        $Categories = Categories::find($id);
 
         view("", compact("Categories"));
     }
@@ -61,3 +61,4 @@ class CategoriesControllers
         redirect("Categories");
     }
 }
+?>

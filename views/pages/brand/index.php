@@ -17,7 +17,7 @@
 
     <tbody>
 
-    <?php foreach($brand as $brand){ ?>
+    <?php foreach($brands as $brand){ ?>
 
         <tr>
             <td><?= $brand->id ?></td>

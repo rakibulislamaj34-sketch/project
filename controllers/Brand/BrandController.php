@@ -32,23 +32,23 @@ class BrandController
 
     public function edit($id)
     {
-        $brand = Brand::find($id);
+        $brands = Brand::find($id);
 
-        view("", compact("brand"));
+        view("", compact("brands"));
     }
 
     public function update()
     {
         if (isset($_POST["btn_update"])) {
 
-            $brand = new Brand();
+            $brands = new Brand();
 
-            $brand->set(
+            $brands->set(
                 $_POST["id"],
                 $_POST["name"]
             );
 
-            $brand->update();
+            $brands->update();
 
             redirect("brand");
         }

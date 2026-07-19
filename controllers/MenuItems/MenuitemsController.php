@@ -1,11 +1,11 @@
 <?php
 
-class Menu_ItemsController
+class MenuitemsController
 {
     // Show All
     public function index()
     {
-        $data = Menu_Items::all();
+        $data = menuitems::all();
 
         view("", compact("data"));
     }
@@ -13,7 +13,7 @@ class Menu_ItemsController
     // Create Form
     public function create()
     {
-        $categories = Category::all();
+        $categories =Categories::all();
 
         view("", compact("categories"));
     }
@@ -23,7 +23,7 @@ class Menu_ItemsController
     {
         if (isset($_POST["btn_submit"])) {
 
-            $menu = new Menu_Items();
+            $menu = new menuitems();
 
             $menu->set(
                 "",
@@ -42,9 +42,9 @@ class Menu_ItemsController
     // Edit
     public function edit($id)
     {
-        $menu = Menu_Items::find($id);
-        $categories = Category::all();
-
+        $menu = menuitems::find($id);
+        $categories = Categories::all();
+       
         view("", compact("menu", "categories"));
     }
 
@@ -53,7 +53,7 @@ class Menu_ItemsController
     {
         if (isset($_POST["btn_update"])) {
 
-            $menu = new Menu_Items();
+            $menu = new menuitems();
 
             $menu->set(
                 $_POST["id"],
@@ -72,7 +72,7 @@ class Menu_ItemsController
     // Delete
     public function delete($id)
     {
-        Menu_Items::delete($id);
+        menuitems::delete($id);
 
         redirect("menuitems");
     }

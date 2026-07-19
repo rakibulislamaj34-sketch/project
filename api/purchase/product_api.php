@@ -2,7 +2,7 @@
 class ProductApi{
     public function __construct(){
     }
-    public index(){
+    public function index(){
         echo json_encode(["products"=>Product::all()]);
     }
     function pagination($data){

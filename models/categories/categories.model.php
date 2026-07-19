@@ -1,6 +1,6 @@
 <?php
 
-class Brand
+class categories
 {
     public $id;
     public $name;
@@ -21,7 +21,7 @@ class Brand
     {
         global $db;
 
-        $sql = "INSERT INTO Brand
+        $sql = "INSERT INTO categories
                 (
                     name
                 )
@@ -42,7 +42,7 @@ class Brand
     {
         global $db;
 
-        $sql = "SELECT * FROM Brand ORDER BY id DESC";
+        $sql = "SELECT * FROM categories ORDER BY id DESC";
 
         $result = $db->query($sql);
 
@@ -62,7 +62,7 @@ class Brand
 
     $id = (int)$id;
 
-    $sql = "SELECT * FROM Brand WHERE id = $id";
+    $sql = "SELECT * FROM categories WHERE id = $id";
 
     $result = $db->query($sql);
 
@@ -74,7 +74,7 @@ class Brand
     {
         global $db;
 
-        $sql = "UPDATE Brand SET
+        $sql = "UPDATE categories SET
                     name='$this->name'
                 WHERE id='$this->id'";
 
@@ -90,7 +90,7 @@ class Brand
     {
         global $db;
 
-        $sql = "DELETE FROM Brand WHERE id='$id'";
+        $sql = "DELETE FROM categories WHERE id='$id'";
 
         if ($db->query($sql)) {
             return true;

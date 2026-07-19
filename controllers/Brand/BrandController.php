@@ -2,53 +2,46 @@
 
 class BrandController
 {
-    // Show All
     public function index()
     {
-        $data = Brand::all();
-
-        view("", compact("data"));
+        $brands = Brand::all();
+        view("", compact("brands"));
     }
 
-    // Create Form
     public function create()
     {
         view("");
     }
 
-    // Save
     public function save()
     {
         if (isset($_POST["btn_submit"])) {
 
-            $uom = new Brand();
+            $brand = new Brand();
 
-            $uom->set(
-                "",
+            $brand->set(
+                null,
                 $_POST["name"]
             );
 
-            $uom->create();
+            $brand->create();
 
-            redirect("Brand");
+            redirect("brand");
         }
     }
 
-    // Edit Form
     public function edit($id)
     {
-        $uom = Uoms::find($id);
-        $brand=brand::find($id);
+        $brand = Brand::find($id);
 
-        view("", compact("uom","brand"));
+        view("", compact("brand"));
     }
 
-    // Update
     public function update()
     {
         if (isset($_POST["btn_update"])) {
 
-            $brand = new brand();
+            $brand = new Brand();
 
             $brand->set(
                 $_POST["id"],
@@ -61,13 +54,10 @@ class BrandController
         }
     }
 
-    // Delete
     public function delete($id)
     {
-        brand::delete($id);
+        Brand::delete($id);
 
         redirect("brand");
     }
 }
-
-?>

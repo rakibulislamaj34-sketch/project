@@ -40,7 +40,7 @@
   <link rel="stylesheet" href="<?php echo $base_url?>/asset/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="<?php echo $base_url?>/asset/plugins/summernote/summernote-bs4.min.css">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="<?php echo $base_url?>/code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="<?php echo $base_url?>/asset/font-awesome-4.7.0/css/font-awesome.min.css">
   
   <!-- <script src="https://use.fontawesome.com/bf6432abac.js"></script> -->
@@ -53,8 +53,8 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
-<?php include("views/layout/navbar.php");?>
-<?php include("views/layout/main_sidebar.php");?>
+<?php include_once("views/layout/navbar.php");?>
+<?php include_once("views/layout/main_sidebar.php");?>
 <div class="content-wrapper"> 
    <section class="content-header">
       <div class="container-fluid"> 

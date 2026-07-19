@@ -42,63 +42,47 @@ class PurchaseApi
               $purchase_details->discount =0;
               $purchase_details->save();
 
-
-
-
                $stock = new Stock();
 
-$stock->product_id     = $product->id;
-$stock->quantity       = $product->qty;
-$stock->transaction_id = 1;     
-$stock->warehouse_id   = 1;
-$stock->created_at = date("Y-m-d H:i:s");
- $stock->lot_id = "LOT" . date("Y-m-d H:i:s") . $product->id;
-$stock->save();
-              
-          
-                
+                    $stock->product_id     = $product->id;
+                    $stock->quantity       = $product->qty;
+                    $stock->transaction_id = 1;     
+                    $stock->warehouse_id   = 1;
+                   $stock->created_at = date("Y-m-d H:i:s");
+                   $stock->lot_id = "LOT" . date("Y-m-d H:i:s") . $product->id;
+                   $stock->save(); 
 
             }
 
+            
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }catch(\Throwable $th){
+          json_encode(["err"=>$th->getMessage()]);
         }
         
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

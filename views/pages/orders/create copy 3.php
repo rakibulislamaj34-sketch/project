@@ -54,26 +54,24 @@
         width: 60px;
     }
 
-    /* Screen State hidden layout */
+    /* Print/Invoice Specific Styles */
     #posInvoicePrintout {
         display: none;
     }
 
-    /* Print View Overrides */
     @media print {
-
-        /* Completely hide screen components so they don't break page calculation */
+        /* Hide the entire screen POS wrapper safely */
         .pos-container {
             display: none !important;
         }
 
-        /* Standardized layout configuration for thermal ticket papers */
+        /* Explicitly render and clean up the print zone */
         #posInvoicePrintout {
             display: block !important;
-            width: 80mm;
+            width: 80mm; /* Standard POS thermal printer width */
             font-family: 'Courier New', Courier, monospace;
             font-size: 12px;
-            color: #000;
+            color: #f61313;
             padding: 5px;
             margin: 0 auto;
         }
@@ -101,17 +99,18 @@
         }
 
         .divider {
-            border-top: 1px dashed #000;
+            border-top: 1px dashed #ef2222;
             margin: 8px 0;
         }
     }
 </style>
 
-<!-- Primary Screen Workspace Platform Layout -->
+<!-- Main POS Workspace Layout Container -->
 <div class="container-fluid pos-container">
     <div class="row">
-        <!-- Left Side: Interactive catalog menu -->
+        <!-- Left Side: Products Area -->
         <div class="col-lg-8 col-md-7 product-section p-4">
+            <!-- Header & Search -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="fw-bold m-0 text-dark"><i class="bi bi-shop me-2 text-primary"></i> BistroPOS</h4>
                 <div class="w-50">
@@ -122,6 +121,7 @@
                 </div>
             </div>
 
+            <!-- Categories Tabs -->
             <div class="d-flex gap-2 overflow-x-auto pb-3 mb-4">
                 <button class="btn btn-primary category-btn px-4 rounded-pill">All Items</button>
                 <button class="btn btn-outline-secondary category-btn px-4 rounded-pill">Burgers</button>
@@ -130,13 +130,14 @@
                 <button class="btn btn-outline-secondary category-btn px-4 rounded-pill">Desserts</button>
             </div>
 
+            <!-- Products Grid -->
             <div class="row g-3">
                 <?php
                 $products = Product::all();
                 foreach ($products as $key => $value) {
                     echo "
-                <div class='col-xl-3 col-lg-4 col-sm-6'>
-                    <div class='card product-card h-100' onclick=\"addToCart('{$value->id}','{$value->name}', {$value->sell_price})\">
+                     <div class='col-xl-3 col-lg-4 col-sm-6'>
+                    <div class='card product-card h-100' onclick=\"addToCart('{$value->name}', {$value->sell_price})\">
                         <div class='product-img d-flex align-items-center justify-content-center text-muted'></div>
                         <div class='card-body p-3'>
                             <h6 class='card-title fw-bold text-dark m-0'>$value->name</h6>
@@ -153,8 +154,9 @@
             </div>
         </div>
 
-        <!-- Right Side: Order Panel Drawer -->
+        <!-- Right Side: Order/Cart Receipt Area -->
         <div class="col-lg-4 col-md-5 cart-section p-0">
+            <!-- Customer / Order Info Header -->
             <div class="p-3 border-bottom bg-light">
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <span class="fw-bold text-secondary">Current Order #1042</span>
@@ -162,29 +164,30 @@
                 </div>
                 <div class="row g-2">
                     <div class="col-6">
-                        <select class="form-select form-select-sm table_id">
-                            <?php
-                            $table = Tables::all();
-                            foreach ($table as $key => $value) {
-                                echo "<option value='$value->id'>Table No-$value->table_number</option>";
-                            }
-                            ?>
-                        </select>
+                        <select class="form-select form-select-sm">
+                        <?php  
+                          $table = tables::all();
+                          foreach ($table as $key => $value) {
+                           echo "<option value='$value->id'>Table No-$value->table_number</option>";
+                          }
+                        ?>
+                         </select>
                     </div>
                     <div class="col-6">
-                        <select class="form-select form-select-sm customer_id">
-                            <?php
-                            $customers = Customers::all();
-                            foreach ($customers as $key => $value) {
+                        <select class="form-select form-select-sm">
+                            <?php 
+                              $customers = Customers::all();
+                              foreach ($customers as $key => $value) {
                                 echo " <option value='$value->id'>$value->name</option>";
-                            }
+                              }
                             ?>
+                            <option>John Doe</option>
                         </select>
                     </div>
                 </div>
             </div>
 
-            <!-- Scrollable Selected Nodes Wrapper -->
+            <!-- Cart Items List -->
             <div class="cart-items p-3" id="cartItemsContainer">
                 <div class="text-center text-muted my-5 py-5" id="emptyCartMessage">
                     <i class="bi bi-bag-dash fs-1 d-block mb-2"></i>
@@ -192,7 +195,7 @@
                 </div>
             </div>
 
-            <!-- Checkout Actions Base Container -->
+            <!-- Summary & Checkout Footer -->
             <div class="p-3 border-top bg-light mt-auto">
                 <div class="d-flex justify-content-between mb-2">
                     <span class="text-muted">Subtotal</span>
@@ -209,46 +212,83 @@
                 </div>
 
                 <div class="row g-2">
-                    <div class="col-4">
+                    <div class="col-6">
                         <button class="btn btn-outline-danger w-100 py-2 fw-semibold" onclick="clearCart()">
                             <i class="bi bi-trash me-1"></i> Cancel
                         </button>
                     </div>
-                    <div class="col-4">
+                    <div class="col-6">
                         <button class="btn btn-success w-100 py-2 fw-semibold" onclick="printInvoice()">
                             <i class="bi bi-credit-card me-1"></i> Pay Now
                         </button>
-                    </div>
-                     <div class="col-4">
-                        <a href="<?php echo $base_url?>/orders/invoice" class="btn btn-info w-100 py-2 fw-semibold">
-                            <i class="bi bi-credit-card me-1"></i> Invoice
-                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> <!-- .pos-container closes safely before layout rendering leaves -->
+</div> <!-- .pos-container closes here -->
 
 
-<!-- FIXED PLACEMENT: Independent DOM segment ready exclusively for target system stream output -->
+<!-- CRITICAL FIX: The Print Template is now a direct child of body, outside layout wrappers -->
+<div id="posInvoicePrintout">
+    <div class="invoice-header">
+        <h3 style="margin: 0 0 5px 0; font-weight: bold;">BistroPOS</h3>
+        <p style="margin: 0;">123 Culinary Street, Food City</p>
+        <p style="margin: 0;">Tel: (555) 019-2834</p>
+        <div class="divider"></div>
+        <p style="margin: 0; text-align: left;"><strong>Order:</strong> #1042</p>
+        <p style="margin: 0; text-align: left;"><strong>Date:</strong> <span id="invoiceDate"></span></p>
+        <p style="margin: 0; text-align: left;"><strong>Server:</strong> Walk-in / Cashier</p>
+    </div>
 
+    <div class="divider"></div>
+
+    <table class="invoice-table">
+        <thead>
+            <tr>
+                <th style="width: 50%;">Item</th>
+                <th style="width: 15%; text-align: center;">Qty</th>
+                <th style="width: 35%; text-align: right;">Total</th>
+            </tr>
+        </thead>
+        <tbody id="invoiceItemsBody">
+            <!-- Populated dynamically via JS -->
+        </tbody>
+    </table>
+
+    <div class="divider"></div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+        <span>Subtotal:</span>
+        <span id="invoiceSubtotal">$0.00</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+        <span>Tax (10%):</span>
+        <span id="invoiceTax">$0.00</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 5px; font-size: 14px;">
+        <span>TOTAL:</span>
+        <span id="invoiceTotal">$0.00</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="invoice-footer">
+        <p style="margin: 5px 0 0 0; font-style: italic;">Thank you for your visit!</p>
+        <p style="margin: 3px 0 0 0;">Powered by BistroPOS</p>
+    </div>
+</div>
 
 
 <script>
     let cart = [];
 
-    function addToCart(id,name, price) {
+    function addToCart(name, price) {
         const existingItem = cart.find(item => item.name === name);
         if (existingItem) {
             existingItem.quantity += 1;
         } else {
-            cart.push({
-                id,
-                name,
-                price,
-                quantity: 1
-            });
+            cart.push({ name, price, quantity: 1 });
         }
         updateCartUI();
     }
@@ -321,51 +361,42 @@
         document.getElementById('summaryTotal').innerText = `$${total.toFixed(2)}`;
     }
 
-
     function printInvoice() {
         if (cart.length === 0) {
             alert("Your cart is empty!");
             return;
         }
 
-        // 1. Prepare data payload to send to the server
-        const orderData = {
-            table_id: document.querySelector('.table_id').value,
-            customer_id: document.querySelector('.customer_id').value,
-            items: cart,
-            subtotal: parseFloat(document.getElementById('summarySubtotal').innerText.replace('$', '')),
-            tax: parseFloat(document.getElementById('summaryTax').innerText.replace('$', '')),
-            total: parseFloat(document.getElementById('summaryTotal').innerText.replace('$', ''))
-        };
+        const itemsBody = document.getElementById('invoiceItemsBody');
+        itemsBody.innerHTML = ''; 
 
-        // console.log(orderData);
-        
+        let subtotal = 0;
 
-        // 2. Send the data to your backend API via Fetch POST
-        fetch('<?php echo $base_url?>/api/order/store', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // If you are using Laravel, uncomment the line below to include your CSRF token:
-                    // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify(orderData)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response encountered a problem.');
-                }
-                return response.json();
-            })
-            .then(data => {
-               
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
 
-              
-                clearCart();
-            })
-            .catch(error => {
-                console.error('Error saving order:', error);
-                alert('Could not save the order. Print canceled to prevent data discrepancy.');
-            });
+            const row = `
+            <tr>
+                <td>${item.name}</td>
+                <td style="text-align: center;">${item.quantity}</td>
+                <td style="text-align: right;">$${itemTotal.toFixed(2)}</td>
+            </tr>
+        `;
+            itemsBody.insertAdjacentHTML('beforeend', row);
+        });
+
+        const tax = subtotal * 0.10;
+        const total = subtotal + tax;
+
+        document.getElementById('invoiceSubtotal').innerText = `$${subtotal.toFixed(2)}`;
+        document.getElementById('invoiceTax').innerText = `$${tax.toFixed(2)}`;
+        document.getElementById('invoiceTotal').innerText = `$${total.toFixed(2)}`;
+
+        const currentDateTime = new Date().toLocaleString();
+        document.getElementById('invoiceDate').innerText = currentDateTime;
+
+        // Triggers clean window print now that layouts are separated safely
+        window.print();
     }
 </script>

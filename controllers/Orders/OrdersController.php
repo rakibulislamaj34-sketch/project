@@ -89,4 +89,11 @@ class OrdersController
 
         redirect("orders");
     }
+
+      public function invoice()
+    {
+       
+
+       view("");
+    }
 }

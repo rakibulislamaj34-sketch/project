@@ -144,6 +144,21 @@ class Orders
             return false;
         }
     }
+
+       public static function lastOrder()
+    {
+        global $db;
+
+        $sql = "SELECT * FROM orders order by id desc limit 1";
+
+        $result = $db->query($sql);
+
+        if ($result && $result->num_rows > 0) {
+            return (object)$result->fetch_assoc();
+        }
+
+        return null;
+    }
 }
 
 ?>

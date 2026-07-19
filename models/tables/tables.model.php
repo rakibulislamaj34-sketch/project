@@ -1,6 +1,6 @@
 <?php
 
-class tables
+class Tables
 {
     public $id;
     public $table_number;

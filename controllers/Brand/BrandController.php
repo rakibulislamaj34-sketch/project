@@ -23,19 +23,12 @@ class BrandController
         }
     }
 
-    public function edit($id = null)
+    public function edit($id)
     {
-        if (is_array($id)) {
-            $id = isset($id[0]) ? $id[0] : (isset($_GET['id']) ? $_GET['id'] : 0);
-        }
+       
 
-        if (!$id) {
-            $parts = explode('/', $_SERVER['REQUEST_URI']);
-            $id = (int) end($parts);
-        }
-
-        $brand = Brand::find($id);
-        view("", compact("brand"));
+        $data = Brand::find($id);
+        view("", compact("data"));
     }
 
     public function update()

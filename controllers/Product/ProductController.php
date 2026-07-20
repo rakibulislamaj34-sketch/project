@@ -53,7 +53,7 @@ class ProductController
     // Edit Product Form
     public function edit($id)
     {
-        $product = Product::find($id);
+        $data = Product::find($id);
 
         $uoms = Uoms::all();
         $brands = Brand::all();
@@ -61,7 +61,7 @@ class ProductController
         view(
             "",
             compact(
-                "product",
+                "data",
                 "uoms",
                 "brands"
             )
@@ -71,11 +71,16 @@ class ProductController
     // Update Product
    public function update()
     {
-        if (isset($_POST["btn_update"])) {
-            $photo = $_POST["old_photo"];
+
+        // print_r($_FILES);
+        if (isset($_POST["btn_submit"])) {
+            
+        // print_r($_FILES);
+        // print_r($_POST);
+            //  $photo = $_POST["old_photo"];
 
             if (!empty($_FILES["photo"]["name"])) {
-                $photo = File::upload($_FILES["photo"], "img", time());
+                $photo = File::upload($_FILES["photo"], "img",  $_POST["name"]);
             }
 
             $product = new Product();
@@ -92,7 +97,8 @@ class ProductController
             );
 
             $product->update();
-            redirect("product");
+
+            redirect();
         }
 
 

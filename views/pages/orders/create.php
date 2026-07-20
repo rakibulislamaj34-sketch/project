@@ -105,6 +105,43 @@
             margin: 8px 0;
         }
     }
+
+    .product-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all .3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+.product-img {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* Cover the whole area */
+    display: block;
+    transition: .3s;
+}
+
+.product-card:hover .product-img img {
+    transform: scale(1.08);
+}
+
+.product-card .card-body {
+    padding: 15px;
+}
 </style>
 
 <!-- Primary Screen Workspace Platform Layout -->
@@ -137,7 +174,9 @@
                     echo "
                 <div class='col-xl-3 col-lg-4 col-sm-6'>
                     <div class='card product-card h-100' onclick=\"addToCart('{$value->id}','{$value->name}', {$value->sell_price})\">
-                        <div class='product-img d-flex align-items-center justify-content-center text-muted'></div>
+                        <div class='product-img d-flex align-items-center justify-content-center text-muted'>
+                           <img  src='$base_url/img/$value->photo'     />
+                        </div>
                         <div class='card-body p-3'>
                             <h6 class='card-title fw-bold text-dark m-0'>$value->name</h6>
                             <p class='small text-muted mb-2'>$value->category_id</p>

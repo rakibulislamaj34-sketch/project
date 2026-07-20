@@ -2,6 +2,8 @@
 if (!isset($brand) || !$brand) {
     die("Brand not found!");
 }
+
+print_r($data);
 ?>
 
 <div class="container mt-4">
@@ -19,7 +21,7 @@ if (!isset($brand) || !$brand) {
                 <input 
                  type="hidden" 
                  name="id" 
-                 value="<?= isset($brand->id) ? htmlspecialchars($brand->id) : ''; ?>">
+                 value="<?= isset($data->id) ? htmlspecialchars($data->id) : ''; ?>">
                 <div class="mb-3">
 
                     <label class="form-label">
@@ -30,7 +32,7 @@ if (!isset($brand) || !$brand) {
                         type="text"
                         name="name"
                         class="form-control"
-                        value="<?= htmlspecialchars($brand->name ?? '') ?>"
+                        value="<?= htmlspecialchars($data->name ?? '') ?>"
                         required>
 
                 </div>

@@ -42,7 +42,7 @@
        $customer= Customers::find( $order->customer_id);
     
     
-       print_r( $order);
+       //print_r( $order);
     
     ?>
 
@@ -61,8 +61,8 @@
                 <div>
                     <h2 class="text-primary fw-bold mb-1 tracking-tight">FOODFLOW RESTAURANT</h2>
                     <p class="text-muted small mb-0">
-                        House #25, Mirpur, Dhaka <br>
-                        <i class="bi bi-telephone"></i> +8801712345678 | <i class="bi bi-envelope"></i> info@foodflow.com <br>
+                        House #44, nikunja-2, Dhaka <br>
+                        <i class="bi bi-telephone"></i> +8801747345807 | <i class="bi bi-envelope"></i> info@foodflow.com <br>
                         <i class="bi bi-globe"></i> www.foodflow.com
                     </p>
                 </div>
@@ -255,4 +255,5 @@
             printWindow.close();
         }, 500);
     }
+
 </script>

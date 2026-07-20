@@ -1,51 +1,46 @@
 <?php session_start();  
   require_once("configs/db_config.php");
-  $base_url="cpanel";
-  //require_once("library/classes/system_log.class.php");
+  $base_url="localhost";
   
   if(isset($_POST["btnSignIn"])){
+    //echo $username," ",$password;
+     //$result=$db->query("select u.id,u.username,r.name from {$tx}users u,{$tx}roles r where r.id=u.role_id and u.username='$username' and u.password='$password'");
     
      $username=trim($_POST["txtUsername"]);
      $password=trim($_POST["txtPassword"]);
-     //echo $username," ",$password;
-     //$result=$db->query("select u.id,u.username,r.name from {$tx}users u,{$tx}roles r where r.id=u.role_id and u.username='$username' and u.password='$password'");
-     $result=$db->query("select u.id,u.full_name,u.password,u.email,u.photo,u.mobile,u.role_id,r.name role from {$tx}users u,{$tx}roles r where r.id=u.role_id and u.name='$username' and u.inactive=0");
+     
+     
+     $result=$db->query("select u.id, u.full_name, u.password, u.email, u.photo, u.role_id from {$tx}users u where u.full_name='$username'");
       
-         
-      $user=$result->fetch_object();
+     if($result && $result->num_rows > 0) {
+         $user=$result->fetch_object();
 
-      if($user && password_verify($password,$user->password)){
         
-        $_SESSION["uid"]=$user->id;
-        $_SESSION["uname"]=$user->full_name;
-        $_SESSION["uphoto"]=$user->photo;
-        $_SESSION["email"]=$user->email;
-        $_SESSION["mobile"]=$user->mobile; 
-        $_SESSION["role_id"]=$user->role_id;
-        $_SESSION["urole"]=$user->role;
+         if($password === $user->password || password_verify($password, $user->password)){
+            
+            $_SESSION["uid"]=$user->id;
+            $_SESSION["uname"]=$user->full_name;
+            $_SESSION["uphoto"]=$user->photo;
+            $_SESSION["email"]=$user->email;
+            $_SESSION["role_id"]=$user->role_id;
+            $_SESSION["urole"]="Admin"; 
 
-        header("location:home");
-      }else{
-        echo "Incorrect username or password";
-      }
-        
-        
-        
-         //  $now=date("Y-m-d H:i:s");
-        //  $log=new System_log("","LOGIN","Successfully logged in user : $uid-$_username",$now);
-        //  $log->save();
-
-               
-  
-    }
-
+            header("location:home");
+            exit();
+          } else {
+            $error = "Incorrect password!";
+          }
+     } else {
+        $error = "Not found user";
+     }
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>I-SHOP | Log in (v2)</title>
+  <title>FOODFLOW | Log in</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -54,20 +49,18 @@
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="asset/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="asset//dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="asset/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="#" class="h1"><b>I-</b>SHOP   	<?php
-									  // echo password_hash("12345", PASSWORD_DEFAULT);
-									?></a>
+      <a href="#" class="h1"><b>FOOD</b>FLOW</a>
       <div style="text-align:center;color:orange;font-weight:bold"> <?php echo isset($error)?$error:"";?></div>
     </div>
     <div class="card-body">
-      <p class="login-box-msg">Sign in to start your session</p>       
+      <p class="login-box-msg">Sign in to start your session</p>      
       <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
         <div class="input-group mb-3">
           <input type="text" class="form-control" name="txtUsername" id="txtUsername" placeholder="User name">
@@ -150,7 +143,6 @@ $('#chkRemember').click(function () {
 
 function remember(){
   if ($('#chkRemember').is(':checked')) {
-        // save username and password
         localStorage.username = $('#txtUsername').val().trim();
         localStorage.pass = $('#txtPassword').val().trim();
         localStorage.chkbox = $('#chkRemember').val();

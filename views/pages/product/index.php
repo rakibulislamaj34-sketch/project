@@ -47,27 +47,15 @@
                     <td><?= htmlspecialchars($product->description) ?></td>
 
                     <td class="text-center">
-
-                        <?php
-                        $image = !empty($product->photo)
-                            ? $base_url . "/img/" . $product->photo
-                            : "";
-                        ?>
-
                         <?php if (!empty($product->photo)) : ?>
-
-                            <img src="<?= $image; ?>"
+                            <img src="<?= $base_url; ?>/img/<?= $product->photo; ?>"
                                 alt="Product"
                                 width="70"
                                 height="70"
                                 class="img-thumbnail">
-
                         <?php else : ?>
-
                             <span class="text-danger">No Image</span>
-
                         <?php endif; ?>
-
                     </td>
 
                     <td><?= $product->brand_id ?></td>
@@ -79,7 +67,6 @@
                     <td><?= $product->updated_at ?></td>
 
                     <td>
-
                         <a href="<?= $base_url; ?>/product/edit/<?= $product->id; ?>"
                             class="btn btn-warning btn-sm">
                             Edit
@@ -90,7 +77,6 @@
                             onclick="return confirm('Are you sure you want to delete this product?')">
                             Delete
                         </a>
-
                     </td>
 
                 </tr>
@@ -100,11 +86,9 @@
         <?php else : ?>
 
             <tr>
-
                 <td colspan="12" class="text-center text-danger">
                     No Product Found.
                 </td>
-
             </tr>
 
         <?php endif; ?>

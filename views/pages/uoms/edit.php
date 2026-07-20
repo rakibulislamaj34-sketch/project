@@ -16,10 +16,14 @@
                 <div class="card-body">
 
                     <form action="<?php echo $base_url; ?>/uoms/update" method="post">
+                        <?php 
+                        print_r($data);
+                        ?>
 
                         <input type="hidden" 
                                name="id" 
                                value="<?php echo $data->id; ?>">
+                               
 
 
                         <div class="mb-3">

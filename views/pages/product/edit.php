@@ -137,13 +137,18 @@
 
 
 
-                      <div class="mb-3">
+                     <div class="mb-3">
     <label class="form-label">Current Photo</label><br>
-
-    <img src="<?php echo $base_url; ?>/img/<?php echo $product->photo; ?>"
-         width="120"
-         class="img-thumbnail mb-2">
-
+    
+    <?php if (!empty($product->photo)): ?>
+        <img src="<?= $base_url; ?>/img/<?= $product->photo; ?>"
+             width="120"
+             class="img-thumbnail mb-2"
+             alt="Current Image">
+    <?php else: ?>
+        <span class="text-muted d-block mb-2">No photo available</span>
+    <?php endif; ?>
+    
     <input type="file" name="photo" class="form-control">
 </div>
 
@@ -151,25 +156,22 @@
 
 
 
-                        <<div class="mb-3">
+                        
+<div class="mb-3">
     <label class="form-label">Brand</label>
 
     <select name="brand_id" class="form-select" required>
+        <option value="">Select Brand</option>
 
         <?php foreach($brands as $brand): ?>
-
             <option value="<?= $brand->id; ?>"
-                <?= ($product->brand_id == $brand->id) ? 'selected' : ''; ?>>
-
+                <?= (isset($product->brand_id) && $product->brand_id == $brand->id) ? 'selected' : ''; ?>>
                 <?= $brand->name; ?>
-
             </option>
-
         <?php endforeach; ?>
 
     </select>
 </div>
-
 
 
 

@@ -26,19 +26,13 @@ class ProductController
     public function save()
     {
         if (isset($_POST["btn_submit"])) {
-
             $photo = "";
 
             if (!empty($_FILES["photo"]["name"])) {
-                $photo = File::upload(
-                    $_FILES["photo"],
-                    "img",
-                    $_POST["name"]
-                );
+                $photo = File::upload($_FILES["photo"], "img", time());
             }
 
             $product = new Product();
-
             $product->set(
                 "",
                 $_POST["name"],
@@ -52,7 +46,6 @@ class ProductController
             );
 
             $product->create();
-
             redirect("product");
         }
     }
@@ -76,22 +69,16 @@ class ProductController
     }
 
     // Update Product
-    public function update()
+   public function update()
     {
         if (isset($_POST["btn_update"])) {
-
             $photo = $_POST["old_photo"];
 
             if (!empty($_FILES["photo"]["name"])) {
-                $photo = File::upload(
-                    $_FILES["photo"],
-                    "img",
-                    $_POST["name"]
-                );
+                $photo = File::upload($_FILES["photo"], "img", time());
             }
 
             $product = new Product();
-
             $product->set(
                 $_POST["id"],
                 $_POST["name"],
@@ -105,11 +92,11 @@ class ProductController
             );
 
             $product->update();
-
             redirect("product");
         }
-    }
 
+
+}
     // Delete Product
     public function delete($id)
     {

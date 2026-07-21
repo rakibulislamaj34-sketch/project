@@ -4,7 +4,7 @@
 		"icon"=>"nav-icon fa fa-wrench",
 		"route"=>"#",
 		"links"=>[
-			["route"=>"order/create","text"=>"Create Order","icon"=>"far fa-circle nav-icon"],
-			["route"=>"order","text"=>"Manage Order","icon"=>"far fa-circle nav-icon"],
+			["route"=>"orders/create","text"=>"Create Order","icon"=>"far fa-circle nav-icon"],
+			["route"=>"orders","text"=>"Manage Order","icon"=>"far fa-circle nav-icon"],
 		]
 	]);
